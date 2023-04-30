@@ -1,0 +1,216 @@
+/* Reset Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Fonts */
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Navigation Bar */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.1rem;
+    background-color: white;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+nav img {
+    width: 60px;
+    margin-left: 1rem;
+    margin-right: auto;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 1rem;
+}
+
+.nav-links ul {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links ul li {
+    margin-left: 1rem;
+    position: relative;
+}
+
+.nav-links ul a {
+    margin-left: 1rem;
+    position: relative;
+}
+
+.nav-links ul li a {
+    color: #333;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: all 0.3s ease;
+}
+
+.nav-links ul li a:hover {
+    background-color: #EC3237;
+    color: white;
+}
+
+.nav-links ul li.active a {
+    background-color: #EC3237;
+    color: white;
+}
+
+.nav-links ul li:hover::after {
+    width: 100%;
+}
+
+nav #fax{
+    display: none;
+}
+
+nav #fab {
+    display: none;
+}
+
+
+/* Order Section */
+.order {
+    padding: 5rem;
+    text-align: center;
+    display:inline-block;
+    justify-content: center;
+    align-items:center;
+    align-content: center;
+    width: 100%;
+}
+
+.order h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.delivery-type {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.delivery-type button {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    color: #333;
+    cursor: pointer;
+}
+
+.delivery-type button.active {
+    color: #fff;
+    background-color: #EC3237;
+
+}
+
+.delivery-type h2 {
+    font-size: 1.2rem;
+    margin: 1rem;
+    font-weight: normal;
+}
+
+.order form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.order form label {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.order form input[type="text"],
+.order form input[type="email"],
+.order form select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    background-color: #f2f2f2;
+}
+
+.order form select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'%3E%3Cpath fill='%23000000' d='M4 5L0 0h8z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: 8px 5px;
+    background-position: right center;
+}
+
+.order form input[type="submit"] {
+    background-color: #EC3237;
+    color: white;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.order form input[type="submit"]:hover {
+    background-color: #e02930;
+}
+
+.delivery-form button,
+.carryout-form button{
+    background-color: #EC3237;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    font-weight: normal;
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* Footer */
+footer {
+    background-color: #fff;
+    color: #333;
+    width: 100%;
+    text-align: center;
+    padding: 30px 0;
+}
+
+footer p {
+    margin-bottom: 25px;
+    margin-top: 20px;
+    font-weight: 600;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+footer a:hover {
+    color: #EC3237;
+}
+

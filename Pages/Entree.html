@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Domino's Pizza</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="C:\Users\danie\OneDrive\Desktop\Stans\css\entree.css">
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <ul class="nav-links">
+          <li><a href="#">HOME</a></li>
+          <li><a href="#">MENU</a></li>
+          <li><a href="#">DEALS</a></li>
+          <li><a href="#">ACCOUNT</a></li>
+          <li><a href="#">CART</a></li>
+          <li class="dropdown">
+            <a href="#">Order Settings &#9662;</a>
+            <div class="dropdown-content">
+              <a href="#">My Location</a>
+              <a href="#">My Store</a>
+              <a href="#">Service Method</a>
+              <a href="#">Order Timing</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    
+    <section class="food-items">
+      <h1>Our Delicious Menu</h1>
+      <ul>
+        <li>
+          <img src="https://via.placeholder.com/150x150" alt="Pizza">
+          <h2>Pizza</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus bibendum dui, vel consectetur mauris.</p>
+          <div class="item-counter">
+            <button class="counter-button minus">-</button>
+            <span class="count">0</span>
+            <button class="counter-button plus">+</button>
+          </div>
+        </li>
+        <li>
+          <img src="https://via.placeholder.com/150x150" alt="Burger">
+          <h2>Burger</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus bibendum dui, vel consectetur mauris.</p>
+          <div class="item-counter">
+            <button class="counter-button minus">-</button>
+            <span class="count">0</span>
+            <button class="counter-button plus">+</button>
+          </div>
+        </li>
+        <li>
+          <img src="https://via.placeholder.com/150x150" alt="Pasta">
+          <h2>Pasta</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus bibendum dui, vel consectetur mauris.</p>
+          <div class="item-counter">
+            <button class="counter-button minus">-</button>
+            <span class="count">0</span>
+            <button class="counter-button plus">+</button>
+          </div>
+        </li>
+      </ul>
+      
+      <div class="cart">
+        <h2>Cart</h2>
+        <span class="cart-count">0</span>
+      </div>
+    </section>
+    
+    <script>
+        // Select all counter buttons
+        const counterButtons = document.querySelectorAll('.counter-button');
+
+        // Select cart count element
+        const cartCount = document.querySelector('.cart-count');
+
+        // Add event listeners to counter buttons
+        counterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+        // Get current count value
+        let currentCount = parseInt(button.parentElement.querySelector('.count').textContent);
+        // Increment or decrement count based on button clicked
+        if (button.classList.contains('plus')) {
+        currentCount += 1;
+        } else {
+        currentCount = Math.max(currentCount - 1, 0);
+        }
+
+        // Update count element
+        button.parentElement.querySelector('.count').textContent = currentCount;
+
+        // Update cart count
+        let totalItems = 0;
+        document.querySelectorAll('.count').forEach(itemCount => {
+        totalItems += parseInt(itemCount.textContent);
+        });
+        cartCount.textContent = totalItems;
+        });
+        });
+
+    </script>
+  </body>
+</html>
