@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    {% load static %}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Uncle Stan's</title>
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="{% static 'main/css/index.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
@@ -13,7 +14,7 @@
   <body>
     <section class="header">
       <nav>
-          <a href="index.html"><img src="images/logo.png"></a>
+          <a href="index.html"><img src="{% static 'main/images/logo.png' %}"></a>
           <div class="nav-links" id="navLinks">
               <i class="fa fa-times" onclick="hideMenu()"></i>
               <ul>
@@ -27,7 +28,7 @@
       <div class="text-box">
           <h1>Welcome To Uncle Stan's</h1>
           <p>Order Our Delicious Small Chops Online now!</p>
-          <a href="Pages/Order.html"class="hero-btn">Order Now</a>
+          <a href= "{% url 'order' %}"class="hero-btn">Order Now</a>
       </div>
     </section>
     <main>
@@ -38,7 +39,7 @@
         <div class="row">
             <div class="featured-col">
               <article>
-                <img src="images/mega-meal.jpeg" alt="Pizza" />
+                <img src="{% static 'main/images/mega-meal.jpeg' %}" alt="" />
                 <h2>Packs</h2>
                 <p>
                   Our classic pizza topped with spicy pepperoni, mozzarella cheese,
@@ -48,7 +49,7 @@
             </div>
             <div class="featured-col">
               <article>
-                <img src="images/springrolls.jpeg" alt="Pizza" />
+                <img src="{% static 'main/images/springrolls.jpeg' %}" alt="Pizza" />
                 <h2>Platters</h2>
                 <p>
                   Our tropical pizza topped with ham, pineapple, mozzarella cheese,
@@ -58,7 +59,7 @@
             </div>
             <div class="featured-col">
               <article>
-                <img src="images/53CE354D-568D-4CA9-BF15-718C40C2A119.jpeg" alt="Pizza" />
+                <img src="{% static 'main/images/53CE354D-568D-4CA9-BF15-718C40C2A119.jpeg' %}" alt="Pizza" />
                 <h2>Extras</h2>
                 <p>
                   Our vegetarian pizza topped with fresh vegetables, mozzarella
