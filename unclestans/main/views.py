@@ -1,4 +1,8 @@
 from django.shortcuts import render
+from django.http import JsonResponse
+from django.views import View
+#from .models import Order
+
 
 # Create your views here.
 def index(request):
@@ -7,7 +11,7 @@ def index(request):
 def order(request):
     return render(request, 'main/order.html')
 
-def create_order(request):
+'''def create_order(request):
     if request.method == 'POST':
         # Retrieve the data from the request
         customer_name = request.POST.get('customer_name')
@@ -23,3 +27,4 @@ def create_order(request):
     else:
         # Return an error response for invalid request method
         return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+'''
