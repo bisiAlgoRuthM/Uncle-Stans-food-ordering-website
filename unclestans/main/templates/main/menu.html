@@ -1,6 +1,8 @@
 <!DOCTYPE html>
+{% extends 'main/base.html' %}
 <html>
 <head>
+    {% block content%}
     <title>Menu</title>
 </head>
 <body>
@@ -10,12 +12,12 @@
             <li>
                 <h2>{{ menu_item.name }}</h2>
                 <p>{{ menu_item.description }}</p>
-                <p>Price: {{ menu_item.price }}</p>
-                <p>Category: {{ menu_item.category }}</p>
+                <p>Price: {{ menu_item.price }}</p>         
             </li>
         {% empty %}
             <li>No menu items available.</li>
         {% endfor %}
     </ul>
+    {% endblock %}
 </body>
 </html>

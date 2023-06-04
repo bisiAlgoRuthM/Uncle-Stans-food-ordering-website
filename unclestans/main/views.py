@@ -23,6 +23,9 @@ class Index(View):
 class About(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'main/about.html')
+class Entree(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'main/entree.html')
 
 def load_menu(file_path):
     with open(file_path, 'r') as csv_file:
