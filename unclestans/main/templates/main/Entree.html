@@ -1,105 +1,107 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Domino's Pizza</title>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="C:\Users\danie\OneDrive\Desktop\Stans\css\entree.css">
-  </head>
-  <body>
-    <header>
-      <nav class="navbar">
-        <ul class="nav-links">
-          <li><a href="#">HOME</a></li>
-          <li><a href="#">MENU</a></li>
-          <li><a href="#">DEALS</a></li>
-          <li><a href="#">ACCOUNT</a></li>
-          <li><a href="#">CART</a></li>
-          <li class="dropdown">
-            <a href="#">Order Settings &#9662;</a>
-            <div class="dropdown-content">
-              <a href="#">My Location</a>
-              <a href="#">My Store</a>
-              <a href="#">Service Method</a>
-              <a href="#">Order Timing</a>
+    <link rel="stylesheet" href="styles.css">
+    <title>Food Ordering Page</title>
+</head>
+<body>
+    <nav>
+        <a href="index.html"><img src="{% static 'main/images/logo.png' %}"></a>
+        <div class="nav-links" id="navLinks">
+            <i class="fa fa-times" onclick="hideMenu()"></i>
+            <ul>
+                <li><a href="C:\Users\danie\OneDrive\Desktop\Uncle-Stans-food-ordering-website\Pages\Entree.html">Menu</a></li>
+                <li><a href="C:\Users\danie\OneDrive\Desktop\Uncle-Stans-food-ordering-website\Pages\Location.html">Locations</a></li>
+                <a href="Pages/Order.html" class="hero-btn-bar">Order Online</a>
+            </ul>
+        </div>
+        <i class="fa fa-bars" onclick="showMenu()"></i>
+    </nav>
+
+    <main>
+        <section id="platters-section">
+            <h2>Platters</h2>
+            <div class="dropdown">
+                <button class="dropdown-btn" onclick="toggleDropdown('platters-dropdown')">Select a Category</button>
+                <div class="dropdown-content" id="platters-dropdown">
+                    <a href="#">Platter for 5</a>
+                    <a href="#">Platter for 10</a>
+                </div>
             </div>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    
-    <section class="food-items">
-      <h1>Our Delicious Menu</h1>
-      <ul>
-        <li>
-          <img src="https://via.placeholder.com/150x150" alt="Pizza">
-          <h2>Pizza</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus bibendum dui, vel consectetur mauris.</p>
-          <div class="item-counter">
-            <button class="counter-button minus">-</button>
-            <span class="count">0</span>
-            <button class="counter-button plus">+</button>
-          </div>
-        </li>
-        <li>
-          <img src="https://via.placeholder.com/150x150" alt="Burger">
-          <h2>Burger</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus bibendum dui, vel consectetur mauris.</p>
-          <div class="item-counter">
-            <button class="counter-button minus">-</button>
-            <span class="count">0</span>
-            <button class="counter-button plus">+</button>
-          </div>
-        </li>
-        <li>
-          <img src="https://via.placeholder.com/150x150" alt="Pasta">
-          <h2>Pasta</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus bibendum dui, vel consectetur mauris.</p>
-          <div class="item-counter">
-            <button class="counter-button minus">-</button>
-            <span class="count">0</span>
-            <button class="counter-button plus">+</button>
-          </div>
-        </li>
-      </ul>
-      
-      <div class="cart">
-        <h2>Cart</h2>
-        <span class="cart-count">0</span>
-      </div>
-    </section>
-    
+        </section>
+
+        <section id="packs-section">
+            <h2>Packs</h2>
+            <div class="dropdown">
+                <button class="dropdown-btn" onclick="toggleDropdown('packs-dropdown')">Select a Category</button>
+                <div class="dropdown-content" id="packs-dropdown">
+                    <a href="#">Pack 1</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="extras-section">
+            <h2>Extras</h2>
+            <div class="dropdown">
+                <button class="dropdown-btn" onclick="toggleDropdown('extras-dropdown')">Select a Category</button>
+                <div class="dropdown-content" id="extras-dropdown">
+                    <a href="#">Extra 1</a>
+                </div>
+            </div>
+        </section>
+
+        <div class="cart-container">
+            <div class="cart">
+                <i class="fa fa-shopping-cart"></i>
+                <span id="cart-count">0</span>
+            </div>
+        </div>
+    </main>
+
     <script>
-        // Select all counter buttons
-        const counterButtons = document.querySelectorAll('.counter-button');
+      // Function to toggle the visibility of a dropdown
+      function toggleDropdown(dropdownId) {
+          var dropdownContent = document.getElementById(dropdownId);
+          dropdownContent.classList.toggle("show");
+      }
 
-        // Select cart count element
-        const cartCount = document.querySelector('.cart-count');
+      // Function to hide the mobile menu
+      function hideMenu() {
+          var navLinks = document.getElementById("navLinks");
+          navLinks.style.right = "-200px";
+      }
 
-        // Add event listeners to counter buttons
-        counterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-        // Get current count value
-        let currentCount = parseInt(button.parentElement.querySelector('.count').textContent);
-        // Increment or decrement count based on button clicked
-        if (button.classList.contains('plus')) {
-        currentCount += 1;
-        } else {
-        currentCount = Math.max(currentCount - 1, 0);
-        }
+      // Function to show the mobile menu
+      function showMenu() {
+          var navLinks = document.getElementById("navLinks");
+          navLinks.style.right = "0";
+      }
 
-        // Update count element
-        button.parentElement.querySelector('.count').textContent = currentCount;
+      // Add event listener to close the dropdown when user clicks outside
+      window.addEventListener("click", function(event) {
+          if (!event.target.matches('.dropdown-btn')) {
+              var dropdowns = document.getElementsByClassName("dropdown-content");
+              for (var i = 0; i < dropdowns.length; i++) {
+                  var dropdown = dropdowns[i];
+                  if (dropdown.classList.contains('show')) {
+                      dropdown.classList.remove('show');
+                  }
+              }
+          }
+      });
 
-        // Update cart count
-        let totalItems = 0;
-        document.querySelectorAll('.count').forEach(itemCount => {
-        totalItems += parseInt(itemCount.textContent);
-        });
-        cartCount.textContent = totalItems;
-        });
-        });
+      // Cart functionality
+      var cartCount = 0;
+      var cartCountElement = document.getElementById("cart-count");
+      var cartElement = document.querySelector(".cart");
+
+      cartElement.addEventListener("click", function() {
+          cartCount++;
+          cartCountElement.innerText = cartCount;
+      });
 
     </script>
-  </body>
+</body>
 </html>
