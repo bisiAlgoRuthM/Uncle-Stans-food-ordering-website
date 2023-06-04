@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+  {% load static %}
 
 <head>
     <meta charset="UTF-8">
@@ -9,22 +10,7 @@
 </head>
 
 <body>
-    <nav>
-        <a href="index.html"><img src="{% static 'main/images/logo.png' %}"></a>
-        <div class="nav-links" id="navLinks">
-            <i class="fa fa-times" onclick="hideMenu()"></i>
-            <ul>
-                <li><a
-                        href="C:\Users\danie\OneDrive\Desktop\Uncle-Stans-food-ordering-website\Pages\Entree.html">Menu</a>
-                </li>
-                <li><a
-                        href="C:\Users\danie\OneDrive\Desktop\Uncle-Stans-food-ordering-website\Pages\Location.html">Locations</a>
-                </li>
-                <a href="Pages/Order.html" class="hero-btn-bar">Order Online</a>
-            </ul>
-        </div>
-        <i class="fa fa-bars" onclick="showMenu()"></i>
-    </nav>
+{% block content %}
 
     <main>
         <section id="platters-section">
@@ -109,6 +95,7 @@
         });
 
     </script>
+{% endblock %}
 </body>
 
 </html>
