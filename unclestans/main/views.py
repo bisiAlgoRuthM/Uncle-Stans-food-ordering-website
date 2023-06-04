@@ -13,6 +13,19 @@ class About(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'main/about.html')
 
+class Order(View):
+    def get(self, request, *args, **kwargs):
+        pass
+        #get every item from each category
+
+        #pass in context
+
+        #render the template
+
+
+        
+
+
 
 '''def create_order(request):
     if request.method == 'POST':
