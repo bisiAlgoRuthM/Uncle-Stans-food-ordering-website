@@ -37,11 +37,10 @@ def load_menu(file_path):
             price = row['price']
             category_name = row['category']
 
-            category, _ = Category.objects.get_or_create(category_name=category_name)
+            category, _ = Category.objects.get_or_create(name=category_name)
 
             menu_item = MenuItem(name=name, description=description, price=price)
             menu_item.save()
-            menu_item.category.set([category])  # Assign the category using set()
 
 class MenuView(TemplateView):
     template_name = 'main/menu.html'
