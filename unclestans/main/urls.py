@@ -6,7 +6,8 @@ from django.conf import settings
 
 
 
-urlpatterns = [
+'''urlpatterns = [
     path('', views.index, name= "index"),
     path('order/', views.order, name= "order")
 ]
+'''

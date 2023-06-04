@@ -1,15 +1,18 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from django.views import View
+from django.views import View #import generic view class
 #from .models import Order
 
 
 # Create your views here.
-def index(request):
-    return render(request, 'main/index.html')
+class Index(View):
+    def get(self, request, *args, **kwargs):
+        return render(request,  'main/index.html')
 
-def order(request):
-    return render(request, 'main/order.html')
+class About(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'main/about.html')
+
 
 '''def create_order(request):
     if request.method == 'POST':
