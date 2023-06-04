@@ -4,7 +4,7 @@ from django.db import models
 from django.db import models
 
 class OrderModel(models.Model):
-    customer_name = models.CharField(max_length=100)
+   # customer_name = models.CharField(max_length=100)
     items = models.ManyToManyField('MenuItem', related_name='order', blank=True)
     quantity = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)

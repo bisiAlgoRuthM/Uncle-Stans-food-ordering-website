@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views import View #import generic view class
-from .models import MenuItem, OrderModel
+from .models import MenuItem, OrderModel, Category
 from django.views.generic import TemplateView
 import csv
 
@@ -32,7 +32,9 @@ def load_menu(file_path):
             name = row['name']
             description = row['description']
             price = row['price']
-            category = row['category']
+            category_name = row['category']
+
+            category, _ = Category.objects.get_or_create(category_name=category_name)
 
             menu_item = MenuItem(name=name, description=description, price=price)
             menu_item.save()
@@ -94,10 +96,12 @@ class Order(View):
 
             for item in order_items['items']:
                 price += item['price']
-                item.ids.append(item['id'])
+                item_ids.append(item['id'])
             customer_name = input("Name:")
             order = OrderModel.objects.create(price=price, customer_name=customer_name)
             order.items.add(*item_ids)
+
+            return render(request, 'main/order_confirmation.html')
 
 
 
