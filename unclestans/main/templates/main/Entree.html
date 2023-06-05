@@ -1,11 +1,13 @@
+{% extends 'main/base.html'%}
 <!DOCTYPE html>
 <html lang="en">
   {% load static %}
+  
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{% static 'main/css/entree.css' %}">
     <title>Food Ordering Page</title>
 </head>
 
@@ -52,49 +54,7 @@
         </div>
     </main>
 
-    <script>
-        // Function to toggle the visibility of a dropdown
-        function toggleDropdown(dropdownId) {
-            var dropdownContent = document.getElementById(dropdownId);
-            dropdownContent.classList.toggle("show");
-        }
 
-        // Function to hide the mobile menu
-        function hideMenu() {
-            var navLinks = document.getElementById("navLinks");
-            navLinks.style.right = "-200px";
-        }
-
-        // Function to show the mobile menu
-        function showMenu() {
-            var navLinks = document.getElementById("navLinks");
-            navLinks.style.right = "0";
-        }
-
-        // Add event listener to close the dropdown when user clicks outside
-        window.addEventListener("click", function (event) {
-            if (!event.target.matches('.dropdown-btn')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                for (var i = 0; i < dropdowns.length; i++) {
-                    var dropdown = dropdowns[i];
-                    if (dropdown.classList.contains('show')) {
-                        dropdown.classList.remove('show');
-                    }
-                }
-            }
-        });
-
-        // Cart functionality
-        var cartCount = 0;
-        var cartCountElement = document.getElementById("cart-count");
-        var cartElement = document.querySelector(".cart");
-
-        cartElement.addEventListener("click", function () {
-            cartCount++;
-            cartCountElement.innerText = cartCount;
-        });
-
-    </script>
 {% endblock %}
 </body>
 
