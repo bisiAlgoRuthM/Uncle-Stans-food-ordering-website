@@ -57,9 +57,20 @@ class MenuView(TemplateView):
 
         # Retrieve the menu items from the database
         menu_items = MenuItem.objects.all()
-        context['menu_items'] = menu_items
+        menu_items_data = []
+        for item in menu_items:
+            menu_item_data = {
+                'name': item.name,
+                'description': item.description,
+                'image_url': item.image.url if item.image else '',
+                'price': item.price
+            }
+            menu_items_data.append(menu_item_data)
+
+        context['menu_items'] = menu_items_data
 
         return context
+
 
 class Order(View):
     def get(self, request, *args, **kwargs):

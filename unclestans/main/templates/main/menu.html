@@ -7,28 +7,32 @@
 </head>
 <body>
     <h1>Menu</h1>
-    <ul><div class="ord-dis">
-        <form method = POST>
-            {% csrf_token %}
-            <div class="pt-5"> 
-                {% for menu_item in menu_items %}
-                <div class="row">
-                    <div class="menu-data">
-                        <img class="rounded" src="{{ menu_item.image.url}}" width="150" height="100"/>
-                    </div>
-                    <div class="menu-data">
-                        <div class="d-flex flex-row">
-                            <input type="checkbox" name="items[]" class="form-check-input" value="{{ menu_item.pk }}">
-                            <label class="form-check-label">{{ menu_item.name }}</label>
+    <ul><div class="row justify-content-center mt-1">
+        <div class="col-md-12 col-sm-12 p-4">
+            <form method = POST action="{% url 'upload_view' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="pt-5"> 
+                    {% for menu_item in menu_items %}
+                    <div class="row">
+                        <div class="col-md-2 col-sm-12">
+                            <img class="col-md-8 col-sm-12" src="{{ menu_item.image.url }}" alt="{{ menu_item.name }}" width="150" height="100"/>
                         </div>
-                        <p class="font-weight-bold pl-5">{{ menu_item.price }}</p>
+                        <div class="featured-col">
+                            <div class="d-flex flex-row">
+                                <input type="checkbox" name="items[]" class="form-check-input" value="{{ menu_item.pk }}">
+                                <label class="form-check-label">{{ menu_item.name }}</label>
+                            </div>
+                            <p class="font-weight-bold pl-5">{{ menu_item.price }}</p>
+                        </div class="featured-col">
+                        <p>{{ menu_item.description }}</p>
                     </div>
-                    <p>{{ menu_item.description }}</p>
+                    {% endfor %}
                 </div>
-                {% endfor %}
-            </div>
-            <button class="btn btn-dark mt-5">Place Order!</button>
-        </form>
+                <button class="hero-btn">Place Order!</button>
+            </form>
+
+    </div>
+      
 
 
 
