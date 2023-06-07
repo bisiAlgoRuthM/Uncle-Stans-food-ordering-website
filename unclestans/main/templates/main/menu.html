@@ -9,13 +9,13 @@
     <h1>Menu</h1>
     <ul><div class="row justify-content-center mt-1">
         <div class="col-md-12 col-sm-12 p-4">
-            <form method = POST action="{% url 'upload_view' %}" enctype="multipart/form-data">
+            <form method = POST action="{% url 'index' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="pt-5"> 
                     {% for menu_item in menu_items %}
                     <div class="row">
                         <div class="col-md-2 col-sm-12">
-                            <img class="col-md-8 col-sm-12" src="{{ menu_item.image.url }}" alt="{{ menu_item.name }}" width="150" height="100"/>
+                        <img src="{{ menu_item.image_url }}" alt="{{ menu_item.name }}" width="150" height="100"/>
                         </div>
                         <div class="featured-col">
                             <div class="d-flex flex-row">
@@ -32,15 +32,9 @@
             </form>
 
     </div>
-      
-
-
-
-
-    </div>
-
-        
-    </ul>
+    </ul>      
+        </div>        
+    
     {% endblock %}
 </body>
 </html>
