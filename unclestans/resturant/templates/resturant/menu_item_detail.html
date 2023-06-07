@@ -1,0 +1,15 @@
+{% extends "resturant/base.html"%}
+
+{% if success %}
+<script>
+  $(document).ready(function() {
+    $('#successModal').modal('show');
+  });
+</script>
+{% endif %}
+
+<!-- Rest of the template -->
+<h1>{{ item.name }}</h1>
+<img src="{{ item.image.url }}" alt="{{ item.name }}">
+<p>{{ item.description }}</p>
+<p>Price: {{ item.price }}</p>

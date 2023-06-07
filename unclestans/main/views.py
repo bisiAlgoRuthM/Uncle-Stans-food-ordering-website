@@ -27,6 +27,10 @@ class Entree(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'main/entree.html')
 
+class Test(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'main/test.html')
+    
 def load_menu(file_path):
     with open(file_path, 'r') as csv_file:
         csv_data = csv.DictReader(csv_file)
@@ -77,7 +81,7 @@ class Order(View):
     
     def post(self, request, *args, **kwargs):
         order_items = {
-            'items': []   #empty list to store order items
+            'items': []   #empty list to store order items in the cart
         }
         #create list of selected items
         items = request.POST.getlist('items[]')

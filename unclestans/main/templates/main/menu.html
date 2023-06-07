@@ -7,16 +7,35 @@
 </head>
 <body>
     <h1>Menu</h1>
-    <ul>
-        {% for menu_item in menu_items %}
-            <li>
-                <h2>{{ menu_item.name }}</h2>
-                <p>{{ menu_item.description }}</p>
-                <p>Price: {{ menu_item.price }}</p>         
-            </li>
-        {% empty %}
-            <li>No menu items available.</li>
-        {% endfor %}
+    <ul><div class="ord-dis">
+        <form method = POST>
+            {% csrf_token %}
+            <div class="pt-5"> 
+                {% for menu_item in menu_items %}
+                <div class="row">
+                    <div class="menu-data">
+                        <img class="rounded" src="{{ menu_item.image.url}}" width="150" height="100"/>
+                    </div>
+                    <div class="menu-data">
+                        <div class="d-flex flex-row">
+                            <input type="checkbox" name="items[]" class="form-check-input" value="{{ menu_item.pk }}">
+                            <label class="form-check-label">{{ menu_item.name }}</label>
+                        </div>
+                        <p class="font-weight-bold pl-5">{{ menu_item.price }}</p>
+                    </div>
+                    <p>{{ menu_item.description }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            <button class="btn btn-dark mt-5">Place Order!</button>
+        </form>
+
+
+
+
+    </div>
+
+        
     </ul>
     {% endblock %}
 </body>
