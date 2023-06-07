@@ -35,9 +35,7 @@ def load_menu(file_path):
             name = row['name']
             description = row['description']
             price = row['price']
-            category_name = row['category']
 
-            category, _ = Category.objects.get_or_create(name=category_name)
 
             menu_item = MenuItem(name=name, description=description, price=price)
             menu_item.save()
@@ -62,16 +60,16 @@ class MenuView(TemplateView):
 class Order(View):
     def get(self, request, *args, **kwargs):
         packs = MenuItem.objects.filter(category__name__contains='packs')
-        platterfor5 = MenuItem.objects.filter(category__name__contains='platter for 5')
-        platterfor10 = MenuItem.objects.filter(category__name__contains='platter for 10')
-        extras = MenuItem.objects.filter(category__name__contains='extras')
+        platter = MenuItem.objects.filter(category__name__contains='platter')
+        drink = MenuItem.objects.filter(category__name__contains='drink')
+        extra = MenuItem.objects.filter(category__name__contains='extras')
 
         # Pass the menu items to the template context
         context = {
-            'packs': packs,
-            'platterfor5': platterfor5,
-            'platterfor10': platterfor10,
-            'extras': extras
+            'pack': packs,
+            'platter': platter,
+            'extra': extra,
+            'drink': drink
         }
 
         # Render the template with the provided context
@@ -125,3 +123,6 @@ class Order(View):
         # Return an error response for invalid request method
         return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 '''
+'''            category_name = row['category']
+
+            category, _ = Category.objects.get_or_create(name=category_name)'''
