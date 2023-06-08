@@ -144,6 +144,7 @@ class Order(View):
 
             return render(request, 'main/order_confirmation.html')
 
+
 def cart_view(request):
     cart = request.session.get('cart', [])
     total = 0

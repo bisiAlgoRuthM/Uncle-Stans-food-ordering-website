@@ -7,27 +7,28 @@
 </head>
 <body>
     <h1>Menu</h1>
-    <form method="POST" action="{% url 'index' %}" enctype="multipart/form-data">
-        {% csrf_token %}
+    {% for category, menu_items in menu_items_data.items %}
+    <h2>{{ category }}</h2>
+    <select name="category_dropdown" id="category-dropdown">
+        {% for menu_item in menu_items %}
+        <option value="{{ menu_item.pk }}">
+            <img src="{{ menu_item.image_url }}" alt="{{ menu_item.name }}" width="150" height="100">
+            {{ menu_item.name }} - Price: {{ menu_item.price }}
+        </option>
+        {% endfor %}
+    </select>
+    {% endfor %}
+    <ul>
         <div class="row justify-content-center mt-1">
             <div class="col-md-12 col-sm-12 p-4">
-                <div class="pt-5"> 
-                    <select name="menu_items" class="form-control">
-                        {% for category, menu_items in menu_items_data.items %}
-                        <optgroup label="{{ category }}">
-                            {% for menu_item in menu_items %}
-                            <option value="{{ menu_item.pk }}">
-                                {{ menu_item.name }} - Price: {{ menu_item.price }}
-                            </option>
-                            {% endfor %}
-                        </optgroup>
-                        {% endfor %}
-                    </select>
-                </div>
-                <button class="hero-btn">Checkout</button>
+                <form method="POST" action="{% url 'index' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="pt-5">
+                        <!-- Rest of the form -->
+                    </div>
+                    <button class="hero-btn">Checkout</button>
+                </form>
             </div>
-        </div>
-    </form>
 </body>
 {% endblock %}
 </html>

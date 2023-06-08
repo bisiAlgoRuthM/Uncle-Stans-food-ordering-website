@@ -33,3 +33,13 @@ class Cart(models.Model):
 
     def calculate_total(self):
         return sum(item.price for item in self.items.all())
+    
+# models.py
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f"CartItem {self.pk} - Menu Item: {self.menu_item.name}, Quantity: {self.quantity}"
