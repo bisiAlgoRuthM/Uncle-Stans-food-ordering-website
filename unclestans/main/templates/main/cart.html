@@ -1,12 +1,16 @@
 <!DOCTYPE html>
+{% extends 'main/base.html'%}
 <html lang="en">
 <head>
+  {% load static %}
+ 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="cart.css">
+  <link rel="stylesheet" href="{% static 'main/css/cart.css' %}">
   <title>Cart</title>
 </head>
 <body>
+  {% block content %}
   <header>
     <h1>Cart</h1>
   </header>
@@ -22,5 +26,6 @@
   </main>
 
   <script src="script.js"></script>
+  {% endblock %}
 </body>
 </html>
