@@ -9,34 +9,23 @@
   <link rel="stylesheet" href="{% static 'main/css/cart.css' %}">
   <title>Cart</title>
 </head>
-
-    {% block content%}
-    <title>Cart</title>
-</head>
 <body>
+  {% block content %}
+  <header>
     <h1>Cart</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in cart_items %}
-            <tr>
-                <td>{{ item.name }}</td>
-                <td>{{ item.price }}</td>
-                <td>{{ item.quantity }}</td>
-                <td>{{ item.total }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
- <button id="checkout-button">Checkout</button>
+  </header>
+  <main>
+    <div id="cart-items">
+      <!-- The selected items and their quantities will be dynamically added here -->
+    </div>
+    <div id="total">
+      <span>Total:</span>
+      <span id="total-amount">$0</span>
+    </div>
+    <button id="checkout-button">Checkout</button>
   </main>
+
+  <script src="{script.js}"></script>
   {% endblock %}
 </body>
 </html>
