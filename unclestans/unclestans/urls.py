@@ -18,7 +18,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from resturant.views import upload_view, update_view, menu_item_detail
-from main.views import Index, About, MenuView, Entree, Test
+from main.views import Index, About, MenuView, Entree
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,7 +26,6 @@ urlpatterns = [
     path('about/', About.as_view(), name='about'),
     path('menu/', MenuView.as_view(), name='menu'),
     path('entree/', Entree.as_view(), name='entree'),
-    path('test/', Test.as_view(), name='test'),
     path('upload/', upload_view, name='upload_view'),
     path('update/<int:item_id>/', update_view, name='update_view'),
     path('item/<int:item_id>/', menu_item_detail, name='menu_item_detail'),

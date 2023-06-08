@@ -26,3 +26,10 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Cart(models.Model):
+    items = models.ManyToManyField(MenuItem)
+
+    def calculate_total(self):
+        return sum(item.price for item in self.items.all())

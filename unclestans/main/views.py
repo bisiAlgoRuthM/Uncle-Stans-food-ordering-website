@@ -27,9 +27,9 @@ class Entree(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'main/entree.html')
 
-class Test(View):
+'''class Test(View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'main/test.html')
+        return render(request, 'main/test.html')'''
     
 def load_menu(file_path):
     with open(file_path, 'r') as csv_file:
@@ -43,7 +43,7 @@ def load_menu(file_path):
 
             menu_item = MenuItem(name=name, description=description, price=price)
             menu_item.save()
-
+'''
 class MenuView(TemplateView):
     template_name = 'main/menu.html'
 
@@ -68,6 +68,32 @@ class MenuView(TemplateView):
             menu_items_data.append(menu_item_data)
 
         context['menu_items'] = menu_items_data
+
+        return context'''
+
+from django.views.generic import TemplateView
+from main.models import MenuItem, Category
+
+class MenuView(TemplateView):
+    template_name = 'main/test.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs )
+
+        if not MenuItem.objects.exists():
+            # Load the menu data if no menu items exist in the database
+            menu_file = "data/menu.csv"
+            load_menu(menu_file)
+
+        # Retrieve the menu items from the database grouped by category
+        categories = Category.objects.all()
+        menu_items_data = {}
+
+        for category in categories:
+            menu_items = MenuItem.objects.filter(category=category)
+            menu_items_data[category.name] = menu_items
+
+        context['menu_items_data'] = menu_items_data
 
         return context
 
@@ -118,8 +144,22 @@ class Order(View):
 
             return render(request, 'main/order_confirmation.html')
 
+def cart_view(request):
+    cart = request.session.get('cart', [])
+    total = 0
 
+    #retrive items in the cart 
+    menu_items = MenuItem.objects.filter(pk__in=cart)
 
+    #calculate total 
+    total = sum(item.price for item in menu_items)
+
+    context = {
+        'menu_items': menu_items,
+        'total': total
+    }
+
+    return render(request, 'main/cart.html', context)
 
 '''def create_order(request):
     if request.method == 'POST':
