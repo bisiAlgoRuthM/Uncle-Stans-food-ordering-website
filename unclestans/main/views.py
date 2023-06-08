@@ -43,7 +43,7 @@ def load_menu(file_path):
 
             menu_item = MenuItem(name=name, description=description, price=price)
             menu_item.save()
-'''
+
 class MenuView(TemplateView):
     template_name = 'main/menu.html'
 
@@ -69,13 +69,13 @@ class MenuView(TemplateView):
 
         context['menu_items'] = menu_items_data
 
-        return context'''
+        return context
 
 from django.views.generic import TemplateView
 from main.models import MenuItem, Category
 
-class MenuView(TemplateView):
-    template_name = 'main/test.html'
+'''class MenuView(TemplateView):
+    template_name = 'main/menu.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs )
@@ -95,7 +95,7 @@ class MenuView(TemplateView):
 
         context['menu_items_data'] = menu_items_data
 
-        return context
+        return context'''
 
 
 class Order(View):
