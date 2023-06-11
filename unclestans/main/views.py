@@ -7,7 +7,7 @@ import csv
 
 
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views import View
 from django.views.generic import TemplateView
@@ -114,12 +114,17 @@ class Order(View):
             order = OrderModel.objects.create(price=price)
             order.items.add(*item_ids)
 
+            cart = request.session.get('cart', [])
+            cart.extend(item_ids)
+            request.session['cart'] = cart
+
+
             context = {
                 'items': order_items,
                 'price': price
             }
 
-            return render(request, context, 'main/order_confirmation.html')
+            return redirect('cart')
 
 
 def cart_view(request):
@@ -127,17 +132,54 @@ def cart_view(request):
     total = 0
 
     #retrive items in the cart 
-    menu_items = MenuItem.objects.filter(pk__in=cart)
+    order_items = MenuItem.objects.filter(pk__in=cart)
 
     #calculate total 
-    total = sum(item.price for item in menu_items)
+    total = sum(item.price for item in order_items)
 
     context = {
-        'menu_items': menu_items,
-        'total': total
+        'menu_items': order_items,
+        'price': total
     }
 
-    return render(request, 'main/cart.html', context)
+    return render(request, 'main/test.html', context)
+from django.views import View
+from django.shortcuts import render
+from .models import MenuItem
+
+class AddToCartView(View):
+    def post(self, request, *args, **kwargs):
+        item_id = request.POST.get('item_id')
+        quantity = int(request.POST.get('quantity', 1))
+
+        try:
+            item = MenuItem.objects.get(pk=item_id)
+        except MenuItem.DoesNotExist:
+            return redirect('order')  # Redirect to the order page if the item does not exist
+
+        cart = request.session.get('cart', {})
+        if item_id in cart:
+            cart[item_id] += quantity
+        else:
+            cart[item_id] = quantity
+
+        request.session['cart'] = cart
+
+        # Retrieve the menu items for the order page
+        pack = MenuItem.objects.filter(category__name__contains='pack')
+        platter = MenuItem.objects.filter(category__name__contains='platter')
+        drink = MenuItem.objects.filter(category__name__contains='drink')
+        extra = MenuItem.objects.filter(category__name__contains='extras')
+
+        context = {
+            'pack': pack,
+            'platter': platter,
+            'extra': extra,
+            'drink': drink
+        }
+
+        return render(request, 'main/order.html', context)
+
 
 '''def create_order(request):
     if request.method == 'POST':

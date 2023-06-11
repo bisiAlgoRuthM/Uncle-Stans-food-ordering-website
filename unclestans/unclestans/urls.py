@@ -28,6 +28,7 @@ urlpatterns = [
     path('order/', Order.as_view(), name='order'),
     path('entree/', Entree.as_view(), name='entree'),
     path('upload/', upload_view, name='upload_view'),
+    path('add_cart', AddToCartV)
     path('cart/', cart_view, name='cart'),
     path('update/<int:item_id>/', update_view, name='update_view'),
     path('item/<int:item_id>/', menu_item_detail, name='menu_item_detail'),

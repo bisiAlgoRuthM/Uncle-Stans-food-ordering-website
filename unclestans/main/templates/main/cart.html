@@ -16,7 +16,28 @@
   </header>
   <main>
     <div id="cart-items">
-      <!-- The selected items and their quantities will be dynamically added here -->
+          <h1>Cart</h1>
+          <table>
+              <thead>
+                  <tr>
+                      <th>Item</th>
+                      <th>Price</th>
+                      <th>Quantity</th>
+                      <th>Total</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for item in cart_items %}
+                  <tr>
+                      <td>{{ item.name }}</td>
+                      <td>{{ item.price }}</td>
+                      <td>{{ item.quantity }}</td>
+                      <td>{{ item.total }}</td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      
     </div>
     <div id="total">
       <span>Total:</span>

@@ -3,32 +3,41 @@
 <html>
 <head>
     {% block content%}
-    <title>Menu</title>
+    <title>Cart</title>
 </head>
 <body>
-    <h1>Menu</h1>
-    {% for category, menu_items in menu_items_data.items %}
-    <h2>{{ category }}</h2>
-    <select name="category_dropdown" id="category-dropdown">
-        {% for menu_item in menu_items %}
-        <option value="{{ menu_item.pk }}">
-            <img src="{{ menu_item.image_url }}" alt="{{ menu_item.name }}" width="150" height="100">
-            {{ menu_item.name }} - Price: {{ menu_item.price }}
-        </option>
-        {% endfor %}
-    </select>
-    {% endfor %}
+    <h1>Cart</h1>
     <ul>
         <div class="row justify-content-center mt-1">
             <div class="col-md-12 col-sm-12 p-4">
-                <form method="POST" action="{% url 'index' %}" enctype="multipart/form-data">
+                <form method="POST" action="{% url 'cart' %}">
                     {% csrf_token %}
-                    <div class="pt-5">
-                        <!-- Rest of the form -->
+                    <div class="pt-5"> 
+                        {% for menu_item in menu_items %}
+                        <div class="row">
+                            <div class="col-md-2 col-sm-12">
+                                <img src="{{ menu_item.image_url }}" alt="{{ menu_item.name }}" width="150" height="100"/>
+                            </div>
+                            <div class="col-md-2 col-sm-12">
+                                <div class="d-flex flex-row">
+                                    <input type="hidden" name="item_id" value="{{ menu_item.pk }}">
+                                    <button type="submit" name="add_to_cart" class="btn btn-primary">Add to Cart</button>
+                                    <button type="submit" name="remove_from_cart" class="btn btn-danger">Remove</button>
+                                </div>
+                                <label>{{ menu_item.name }}</label>
+                                <p class="font-weight-bold pl-5">{{ menu_item.price }}</p>
+                            </div>
+                            <div class="featured-col">
+                                <p>{{ menu_item.description }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
                     </div>
                     <button class="hero-btn">Checkout</button>
                 </form>
             </div>
+        </div>
+    </ul>
+    {% endblock %}
 </body>
-{% endblock %}
 </html>
