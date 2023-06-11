@@ -18,7 +18,12 @@
         <div class="nav-links" id="navLinks">
             <i class="fa fa-times" onclick="hideMenu()"></i>
             <ul>
-              <li><a href="{% url 'cart' %}"><i class="fa fa-shopping-cart"></i></a>
+              <li><a href="{% url 'cart' %}"> <div class="cart-container">
+                <div class="cart">
+                  <i class="fa fa-shopping-cart"></i>
+                  <span id="cart-count">0</span>
+                </div>
+              </div></a>
               <li><a href="{% url 'menu' %}">Menu</a></li>
               <li><a href="">Locations</a></li>
               <a href=""class="hero-btn-bar">Place an order</a>
