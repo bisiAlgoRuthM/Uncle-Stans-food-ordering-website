@@ -339,3 +339,60 @@ h2{
     border-radius: 50%;
  }
   
+
+/* Custom styles for quantity buttons */
+.quantity {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  
+  .quantity .btn {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+    border-radius: 50%;
+    padding: 0;
+  }
+  
+  .quantity .btn-outline-dark {
+    color: #343a40;
+    border-color: #343a40;
+  }
+  
+  .quantity .btn-outline-dark:hover {
+    color: #fff;
+    background-color: #343a40;
+    border-color: #343a40;
+  }
+  
+  .quantity-input {
+    text-align: center;
+    width: 60px; /* Adjust the width as needed */
+    height: 30px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .item-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.item-container .item-description {
+    display: none;
+}
+
+.item-container .form-group {
+    margin-bottom: 0;
+}
+
+.item-container .form-check-label {
+    margin-right: 10px;
+}
+
+.item-container .font-weight-bold {
+    margin-left: auto;
+}

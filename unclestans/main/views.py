@@ -89,7 +89,7 @@ class Order(View):
         }
 
         # Render the template with the provided context
-        return render(request, 'main/test1.html', context)
+        return render(request, 'main/order.html', context)
     
     def post(self, request, *args, **kwargs):
         order_items = []

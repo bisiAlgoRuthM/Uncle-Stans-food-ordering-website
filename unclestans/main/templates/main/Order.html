@@ -1,126 +1,161 @@
+{% extends 'main/base.html' %}
 <!DOCTYPE html>
-<html>
-	<head>
-		{% load static %}
-		<title>Uncle Stan's</title>
-		<link rel="stylesheet" type="text/css" href="{% static 'main\css\order.css' %}">
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	</head>
-	<body>
-		<section class="header">
-			<nav>
-				<a href="C:\Users\danie\OneDrive\Desktop\Stans\index.html"><img src="C:\Users\danie\OneDrive\Desktop\Stans\images\logo.png"></a>
-				<div class="nav-links" id="navLinks">
-					<i id="fax" class="fa fa-times"  onclick="hideMenu()"></i>
-					<ul>
-					  <li><a href="#">SIGN IN</a></li>
-					  <li><a href="C:\Users\danie\OneDrive\Desktop\Stans\index.html">HOME</a></li>
-					  <a href="#"><i class="fa fa-shopping-cart"></i></a>
-					</ul>
-				</div>
-				<i id="fab" class="fa fa-bars"  onclick="showMenu()"></i>
-			</nav>
-			
-		</section>
-		<section class="order">
-			<h1>Order Online</h1>
-			<div class="delivery-type">
-				<button id="delivery-button" class="active" onclick="showDeliveryForm()">DELIVERY</button>
-				<h2> - OR - </h2>
-				<button id="carryout-button" onclick="showCarryoutForm()">CARRYOUT</button>
-			</div>
-			<div class="delivery-form" id="delivery-form" style="display:block">
-				<form>
-					<label for="address-type">Address Type *</label>
-					<select id="address-type" name="address-type" required>
-						<option value="" disabled selected>Select Address Type</option>
-						<option value="house">House</option>
-						<option value="apartment">Apartment</option>
-					</select><br>
+<html lang="en">
+<head>
 
-					<label for="area">Area *</label>
-					<select id="area" name="area" required>
-						<option value="" disabled selected>Select Area</option>
-						<option value="ikeja">Ikeja</option>
-						<option value="lekki">Lekki</option>
-						<option value="victoria-island">Victoria Island</option>
-					</select><br>
-
-					<label for="street-number">Street Number / Unit *</label>
-					<input type="text" id="street-number" name="street-number" required><br>
-
-					<label for="street-name">Street Name *</label>
-					<input type="text" id="street-name" name="street-name" required><br>
-
-					<label for="delivery-instructions">Delivery Instructions</label>
-					<textarea id="delivery-instructions" name="delivery-instructions"></textarea><br>
-					<button type="submit">Proceed</button>
-				</form>
-			</div>
-			<div class="carryout-form" id="carryout-form" style="display:none">
-				<form>
-					<div id="map"></div>
-					<button type="submit">Proceed</button>
-				</form>
-			</div>
-			</div>
-			<footer> <p>&copy; 2023 Uncle Stans</p> </footer>
-		</section>
-		<script>
-			function showDeliveryForm() {
-				document.getElementById("delivery-form").style.display = "block";
-				document.getElementById("carryout-form").style.display = "none";
-				document.getElementById("delivery-button").classList.add("active");
-				document.getElementById("carryout-button").classList.remove("active");
-			}
-	
-			function showCarryoutForm() {
-				document.getElementById("delivery-form").style.display = "none";
-				document.getElementById("carryout-form").style.display = "block";
-				document.getElementById("delivery-button").classList.remove("active");
-				document.getElementById("carryout-button").classList.add("active");
-			}
-			var navLinks = document.getElementById("navLinks");
-				function showMenu(){
-					navLinks.style.right = "0";
-				}
-				function hideMenu(){
-					navLinks.style.right = "-200px";
-				}
-				function initMap() {
-					// Specify the coordinates of the restaurant
-					var restaurantLocation = {lat: 37.7749, lng: -122.4194};
-
-					// Create a new Google Map centered on the restaurant location
-					var map = new google.maps.Map(document.getElementById('map'), {
-						center: restaurantLocation,
-						zoom: 16
-					});
-
-					// Add a marker at the restaurant location
-					var marker = new google.maps.Marker({
-						position: restaurantLocation,
-						map: map,
-						title: 'Uncle Stan\'s'
-					});
-				}
-		</script>
-
-		<!-- Include the Google Maps API library -->
-		<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
-		// Replace YOUR_API_KEY with your Google Maps API key. You can obtain a key by following the instructions at https://developers.google.com/maps/gmp-get-started#create-project. Also, make sure to include the Google Maps JavaScript API library in your HTML file.
-
-		//Note that you will need to replace the latitude and longitude values (lat: 37.7749, lng: -122.4194) with the actual coordinates of your restaurant. You can obtain the coordinates using tools like Google Maps or Google Earth.
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
 
 
-
-
-
-
-
-		</script>
-	</body>
-	
+    {% block content %}
+    <div class="container mb-5">
+        <div class="row justify-content-center mt-1">
+            <div class="col-md-12 col-sm-12 p-4">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="pt-5">
+                        {% for ex in extra %}
+                        <div class="row item-container">
+                            {{ ex.category }}
+                            <div class="col-md-2 col-sm-12">
+                                <img class="rounded" src="{{ ex.image.url }}" width="150" height="100"/>
+                            </div>
+                            <div class="col-md-8 col-sm-12">
+                                <div class="d-flex flex-row align-items-center">
+                                    <div class="form-group form-check">
+                                        <input type="checkbox" name="items[]" class="form-check-input" value="{{ ex.pk }}">
+                                        <label class="form-check-label">{{ ex.name }}</label>
+                                    </div>
+                                    <p class="font-weight-bold ml-auto">{{ ex.price }}</p>
+                                    <div class="input-group quantity">
+                                        <button class="btn btn-sm btn-outline-dark quantity-decrease" type="button">-</button>
+                                        <input type="number" name="quantity[]" class="form-control quantity-input" min="0" value="0">
+                                        <button class="btn btn-sm btn-outline-dark quantity-increase" type="button">+</button>
+                                    </div>
+                                </div>
+                                <p class="item-description">{{ ex.description }}</p>
+                            </div>
+                        </div>
+                        <hr />
+                        {% endfor %}
+                    </div>
+    
+                    <div class="pt-5">
+                        {% for pac in pack %}
+                        <div class="row mt-4">
+                            <div class="col-md-2 col-sm-12">
+                                <img class="rounded" src="{{ pac.image.url }}" width="150" height="100"/>
+                            </div>
+                            <div class="col-md-8 col-sm-12">
+                                <div class="d-flex flex-row align-items-center">
+                                    <div class="form-group form-check">
+                                        <input type="checkbox" name="items[]" class="form-check-input" value="{{ pac.pk }}">
+                                        <label class="form-check-label">{{ pac.name }}</label>
+                                    </div>
+                                    <p class="font-weight-bold ml-auto">{{ pac.price }}</p>
+                                    <div class="input-group quantity">
+                                        <button class="btn btn-sm btn-outline-dark quantity-decrease" type="button">-</button>
+                                        <input type="number" name="quantity[]" class="form-control quantity-input" min="0" value="0">
+                                        <button class="btn btn-sm btn-outline-dark quantity-increase" type="button">+</button>
+                                    </div>
+                                </div>
+                                <p class="item-description">{{ pac.description }}</p>
+                            </div>
+                        </div>
+                        <hr />
+                        {% endfor %}
+                    </div>
+    
+                    <div class="pt-5">
+                        {% for p in platter %}
+                        <div class="row mt-4">
+                            <div class="col-md-2 col-sm-12">
+                                <img class="rounded" src="{{ p.image.url }}" width="150" height="100"/>
+                            </div>
+                            <div class="col-md-8 col-sm-12">
+                                <div class="d-flex flex-row align-items-center">
+                                    <div class="form-group form-check">
+                                        <input type="checkbox" name="items[]" class="form-check-input" value="{{ p.pk }}">
+                                        <label class="form-check-label">{{ p.name }}</label>
+                                    </div>
+                                    <p class="font-weight-bold ml-auto">{{ p.price }}</p>
+                                    <div class="input-group quantity">
+                                        <button class="btn btn-sm btn-outline-dark quantity-decrease" type="button">-</button>
+                                        <input type="number" name="quantity[]" class="form-control quantity-input" min="0" value="0">
+                                        <button class="btn btn-sm btn-outline-dark quantity-increase" type="button">+</button>
+                                    </div>
+                                </div>
+                                <p class="item-description">{{ p.description }}</p>
+                            </div>
+                        </div>
+                        <hr />
+                        {% endfor %}
+                    </div>
+    
+                    <div class="pt-5">
+                        {% for dr in drink %}
+                        <div class="row mt-4">
+                            <div class="col-md-2 col-sm-12">
+                                <img class="rounded" src="{{ dr.image.url }}" width="150" height="100"/>
+                            </div>
+                            <div class="col-md-8 col-sm-12">
+                                <div class="d-flex flex-row align-items-center">
+                                    <div class="form-group form-check">
+                                        <input type="checkbox" name="items[]" class="form-check-input" value="{{ dr.pk }}">
+                                        <label class="form-check-label">{{ dr.name }}</label>
+                                    </div>
+                                    <p class="font-weight-bold ml-auto">{{ dr.price }}</p>
+                                    <div class="input-group quantity">
+                                        <button class="btn btn-sm btn-outline-dark quantity-decrease" type="button">-</button>
+                                        <input type="number" name="quantity[]" class="form-control quantity-input" min="0" value="0">
+                                        <button class="btn btn-sm btn-outline-dark quantity-increase" type="button">+</button>
+                                    </div>
+                                </div>
+                                <p class="item-description">{{ dr.description }}</p>
+                            </div>
+                        </div>
+                        <hr />
+                        {% endfor %}
+                    </div>
+    
+                    <button class="hero-btn">Place Order!</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    
+    <script>
+        $(document).ready(function() {
+            // Hide all item descriptions by default
+            $('.item-description').hide();
+    
+            // Toggle the visibility of item description when checkbox is clicked
+            $('.form-check-input').on('click', function() {
+                $(this).parent().next('.item-description').slideToggle();
+            });
+    
+            // Increase and decrease quantity
+            $('.quantity-increase').on('click', function() {
+                const quantityInput = $(this).parent().find('.quantity-input');
+                let quantity = parseInt(quantityInput.val());
+                quantityInput.val(quantity + 1);
+            });
+    
+            $('.quantity-decrease').on('click', function() {
+                const quantityInput = $(this).parent().find('.quantity-input');
+                let quantity = parseInt(quantityInput.val());
+                if (quantity > 0) {
+                    quantityInput.val(quantity - 1);
+                }
+            });
+        });
+    </script>
+    {% endblock %}
+    
+</body>
+</html>
