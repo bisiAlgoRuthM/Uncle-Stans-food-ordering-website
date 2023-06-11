@@ -92,31 +92,30 @@ class Order(View):
         return render(request, 'main/test1.html', context)
     
     def post(self, request, *args, **kwargs):
-        order_items = {
-            'items': []   #empty list to store order items in the cart
-        }
+        order_items = []
         #create list of selected items
         items = request.POST.getlist('items[]')
+        quantity = request.POST.getlist('quantity[]')
+
         #iterate through the list of item, grab data needed using pk
-        for item in items:
+        for item, quantity in zip(items, quantity):
             menu_item = MenuItem.objects.get(pk__contains=int(item))
             item_data = {
                 'id': menu_item.pk,
                 'name' : menu_item.name,
                 'description': menu_item.description,
-                'price': menu_item.price
+                'price': menu_item.price,
+                'quantity': int(quantity)
             }
-            order_items['items'].append(item_data)
-            price = 0
-            item_ids = []
+            order_items.append(item_data)
+            price = sum(item['price'] * item['quantity'] for item in order_items)
+            item_ids = [item['id'] for item in order_items]
 
-            for item in order_items['items']:
-                price += item['price']
-                item_ids.append(item['id'])
             order = OrderModel.objects.create(price=price)
             order.items.add(*item_ids)
+
             context = {
-                'items': order_items['items'],
+                'items': order_items,
                 'price': price
             }
 

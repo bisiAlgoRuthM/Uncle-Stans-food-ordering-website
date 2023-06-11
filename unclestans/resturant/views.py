@@ -10,7 +10,7 @@ def upload_view(request):
         form = MenuForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('success_page')
+            return redirect('menu_item_detail', item_id=id, success=True)
     else:
         form = MenuForm()
 
