@@ -18,13 +18,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from resturant.views import upload_view, update_view, menu_item_detail
-from main.views import Index, About, MenuView, Entree, cart_view
+from main.views import Index, About, MenuView, Entree, cart_view, Order
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', Index.as_view(), name='index'),
     path('about/', About.as_view(), name='about'),
     path('menu/', MenuView.as_view(), name='menu'),
+    path('order/', Order.as_view(), name='order'),
     path('entree/', Entree.as_view(), name='entree'),
     path('upload/', upload_view, name='upload_view'),
     path('cart/', cart_view, name='cart'),

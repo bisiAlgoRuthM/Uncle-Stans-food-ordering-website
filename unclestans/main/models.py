@@ -7,7 +7,14 @@ class OrderModel(models.Model):
     items = models.ManyToManyField('MenuItem', related_name='order', blank=True)
     quantity = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
-    items = models.ManyToManyField('MenuItem', related_name='order', blank=True)
+
+    name = models.CharField(max_length=50, blank=True)
+    email = models.CharField(max_length=50, blank=True)
+    streer = models.CharField(max_length=50, blank=True)
+    city = models.CharField(max_length=50, blank=True)
+    state = models.CharField(max_length=15, blank=True)
+    zipcode = models.IntegerField(blank=True, null=True)
+
     def __str__(self):
         return f"Order #{self.id} - {self.created_at.strftime('%b %d %I %M %p')}"
 

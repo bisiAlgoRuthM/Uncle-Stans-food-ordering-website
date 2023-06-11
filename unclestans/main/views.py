@@ -71,50 +71,25 @@ class MenuView(TemplateView):
 
         return context
 
-from django.views.generic import TemplateView
-from main.models import MenuItem, Category
-
-'''class MenuView(TemplateView):
-    template_name = 'main/menu.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs )
-
-        if not MenuItem.objects.exists():
-            # Load the menu data if no menu items exist in the database
-            menu_file = "data/menu.csv"
-            load_menu(menu_file)
-
-        # Retrieve the menu items from the database grouped by category
-        categories = Category.objects.all()
-        menu_items_data = {}
-
-        for category in categories:
-            menu_items = MenuItem.objects.filter(category=category)
-            menu_items_data[category.name] = menu_items
-
-        context['menu_items_data'] = menu_items_data
-
-        return context'''
 
 
 class Order(View):
     def get(self, request, *args, **kwargs):
-        packs = MenuItem.objects.filter(category__name__contains='packs')
+        pack = MenuItem.objects.filter(category__name__contains='pack')
         platter = MenuItem.objects.filter(category__name__contains='platter')
         drink = MenuItem.objects.filter(category__name__contains='drink')
         extra = MenuItem.objects.filter(category__name__contains='extras')
 
         # Pass the menu items to the template context
         context = {
-            'pack': packs,
+            'pack': pack,
             'platter': platter,
             'extra': extra,
             'drink': drink
         }
 
         # Render the template with the provided context
-        return render(request, 'main/order.html', context)
+        return render(request, 'main/test1.html', context)
     
     def post(self, request, *args, **kwargs):
         order_items = {
@@ -122,7 +97,7 @@ class Order(View):
         }
         #create list of selected items
         items = request.POST.getlist('items[]')
-        #iterate through the list of itemsnd grab data needed using pk
+        #iterate through the list of item, grab data needed using pk
         for item in items:
             menu_item = MenuItem.objects.get(pk__contains=int(item))
             item_data = {
@@ -138,11 +113,14 @@ class Order(View):
             for item in order_items['items']:
                 price += item['price']
                 item_ids.append(item['id'])
-            customer_name = input("Name:")
-            order = OrderModel.objects.create(price=price, customer_name=customer_name)
+            order = OrderModel.objects.create(price=price)
             order.items.add(*item_ids)
+            context = {
+                'items': order_items['items'],
+                'price': price
+            }
 
-            return render(request, 'main/order_confirmation.html')
+            return render(request, context, 'main/order_confirmation.html')
 
 
 def cart_view(request):
@@ -182,3 +160,30 @@ def cart_view(request):
 '''            category_name = row['category']
 
             category, _ = Category.objects.get_or_create(name=category_name)'''
+
+
+from django.views.generic import TemplateView
+from main.models import MenuItem, Category
+
+'''class MenuView(TemplateView):
+    template_name = 'main/menu.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs )
+
+        if not MenuItem.objects.exists():
+            # Load the menu data if no menu items exist in the database
+            menu_file = "data/menu.csv"
+            load_menu(menu_file)
+
+        # Retrieve the menu items from the database grouped by category
+        categories = Category.objects.all()
+        menu_items_data = {}
+
+        for category in categories:
+            menu_items = MenuItem.objects.filter(category=category)
+            menu_items_data[category.name] = menu_items
+
+        context['menu_items_data'] = menu_items_data
+
+        return context'''

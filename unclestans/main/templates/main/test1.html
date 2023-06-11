@@ -1,0 +1,125 @@
+{% extends 'main/base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+    {% block content %}
+<div class="container mb-5">
+    <div class="row justify-content-center mt-1">
+        <div class="col-md-12 col-sm-12 p-4">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="pt-5">
+                    {% for ex in extra %}
+                    <div class="row">
+                        {{ ex.category }}
+                        <div class="col-md-2 col-sm-12">
+                            <img class="rounded" src="{{ ex.image.url }}" width="150" height="100"/>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <div class="d-flex flex-row">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" name="items[]" class="form-check-input" value="{{ ex.pk }}">
+                                    <label class="form-check-label">{{ ex.name }}</label>
+                                </div>
+                                <p class="font-weight-bold pl-5">{{ ex.price }}</p>
+                            </div>
+                            <p class="item-description">{{ ex.description }}</p>
+                        </div>
+                    </div>
+                    <hr />
+                {% endfor %}
+                </div>
+
+                <div class="pt-5">
+                    {% for pac in pack %}
+                    <div class="row mt-4">
+                        <div class="col-md-2 col-sm-12">
+                            <img class="rounded" src="{{ pac.image.url }}" width="150" height="100"/>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <div class="d-flex flex-row">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" name="items[]" class="form-check-input" value="{{ pac.pk }}">
+                                    <label class="form-check-label">{{ pac.name }}</label>
+                                </div>
+                                <p class="font-weight-bold pl-5">{{ pac.price }}</p>
+                            </div>
+                            <p class="item-description">{{ pac.description }}</p>
+                        </div>
+                    </div>
+                    <hr />
+                    {% endfor %}
+                </div>
+
+                <div class="pt-5">
+                    {% for p in platter %}
+                    <div class="row mt-4">
+                        <div class="col-md-2 col-sm-12">
+                            <img class="rounded" src="{{ p.image.url }}" width="150" height="100"/>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <div class="d-flex flex-row">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" name="items[]" class="form-check-input" value="{{ p.pk }}">
+                                    <label class="form-check-label">{{ p.name }}</label>
+                                </div>
+                                <p class="font-weight-bold pl-5">{{ p.price }}</p>
+                            </div>
+                            <p class="item-description">{{ p.description }}</p>
+                        </div>
+                    </div>
+                    <hr />
+                    {% endfor %}
+                </div>
+
+                <div class="pt-5">
+                    {% for dr in drink %}
+                    <div class="row mt-4">
+                        <div class="col-md-2 col-sm-12">
+                            <img class="rounded" src="{{ dr.image.url }}" width="150" height="100"/>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <div class="d-flex flex-row">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" name="items[]" class="form-check-input" value="{{ dr.pk }}">
+                                    <label class="form-check-label">{{ dr.name }}</label>
+                                </div>
+                                <p class="font-weight-bold pl-5">{{ dr.price }}</p>
+                            </div>
+                            <p class="item-description">{{ dr.description }}</p>
+                        </div>
+                    </div>
+                    <hr />
+                    {% endfor %}
+                </div>
+
+                <button class="btn btn-dark mt-5">Place Order!</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+</body>
+<script>
+    $(document).ready(function() {
+  // Hide all item descriptions by default
+  $('.item-description').hide();
+
+  // Toggle the visibility of item description when checkbox is clicked
+  $('.form-check-input').on('click', function() {
+    $(this).parent().next('.item-description').slideToggle();
+  });
+});
+
+</script>
+</html>
+
