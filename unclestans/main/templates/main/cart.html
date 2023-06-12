@@ -6,6 +6,8 @@
     <meta charset="UTF-8">
     <title>Cart</title>
     <link rel="stylesheet" type="text/css" href="{% static 'main/css/cart.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <h1>Cart</h1>
@@ -23,13 +25,17 @@
                 <tr>
                     <td>{{ item.name }}</td>
                     <td>₦{{ item.price }}</td>
-                    <td>{{ item.quantity }}</td>
+                    <td class="quantity">
+                        <button class="btn btn-outline-dark" onclick="decreaseQuantity('{{ item.id }}')">-</button>
+                        <input type="number" class="quantity-input" id="quantity-{{ item.id }}" value="{{ item.quantity }}" min="1">
+                        <button class="btn btn-outline-dark" onclick="increaseQuantity('{{ item.id }}')">+</button>
+                    </td>
                     <td>₦{{ item.price|multiply:item.quantity }}</td>
                     <td>
-                      <form action="{% url 'remove_from_cart' item.id %}" method="POST">
-                        {% csrf_token %}
-                        <button type="submit">Remove</button>
-                      </form>
+                        <form action="{% url 'remove_from_cart' item.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit">Remove</button>
+                        </form>
                     </td>
                 </tr>
             {% endfor %}
@@ -43,5 +49,21 @@
         <p class="empty-cart">Your cart is empty.</p>
         <a href="{% url 'order' %}" class="continue-shopping">Continue Shopping</a>
     {% endif %}
+
+    <script>
+        function decreaseQuantity(itemId) {
+            const quantityInput = document.getElementById(`quantity-${itemId}`);
+            const currentQuantity = parseInt(quantityInput.value);
+            if (currentQuantity > 1) {
+                quantityInput.value = currentQuantity - 1;
+            }
+        }
+
+        function increaseQuantity(itemId) {
+            const quantityInput = document.getElementById(`quantity-${itemId}`);
+            const currentQuantity = parseInt(quantityInput.value);
+            quantityInput.value = currentQuantity + 1;
+        }
+    </script>
 </body>
 </html>
