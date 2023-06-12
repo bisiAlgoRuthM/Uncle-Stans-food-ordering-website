@@ -1,19 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views import View #import generic view class
 from .models import MenuItem, OrderModel, Category
 from django.views.generic import TemplateView
 import csv
-
-
-
-from django.shortcuts import render, redirect
-from django.http import JsonResponse
-from django.views import View
-from django.views.generic import TemplateView
-import csv
-
-from .models import MenuItem
+from decimal import Decimal
+from django.views.decorators.http import require_POST
+from .models import MenuItem, OrderModel
 
 # Create your views here.
 class Index(View):
@@ -126,12 +119,6 @@ class Order(View):
 
             return redirect('cart')
 
-
-from django.shortcuts import render
-from decimal import Decimal
-
-from django.views.decorators.http import require_POST
-
 @require_POST
 def remove_from_cart(request, item_id):
     cart = request.session.get('cart', [])
@@ -167,14 +154,6 @@ def cart_view(request):
 
     return render(request, 'main/cart.html', context)
 
-
-
-
-
-
-from django.views import View
-from django.shortcuts import render
-from .models import MenuItem
 
 class AddToCartView(View):
     def post(self, request, *args, **kwargs):
