@@ -18,7 +18,22 @@ class About(View):
         return render(request, 'main/about.html')
 class Entree(View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'main/entree.html')
+        
+        pack = MenuItem.objects.filter(category__name__contains='pack')
+        platter = MenuItem.objects.filter(category__name__contains='platter')
+        drink = MenuItem.objects.filter(category__name__contains='drink')
+        extra = MenuItem.objects.filter(category__name__contains='extra')
+
+        # Pass the menu items to the template context
+        context = {
+            'pack': pack,
+            'platter': platter,
+            'extra': extra,
+            'drink': drink
+        }
+
+        # Render the template with the provided context
+        return render(request, 'main/entree.html', context)
 
 '''class Test(View):
     def get(self, request, *args, **kwargs):

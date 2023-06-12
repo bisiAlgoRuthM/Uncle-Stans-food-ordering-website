@@ -1,4 +1,3 @@
-{% extends 'main/base.html'%}
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
@@ -6,32 +5,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{% static 'main/css/entree.css' %}">
     <title>Food Ordering Page</title>
 </head>
 
 <body>
   <div id="nav-pane">
-    <ul>
-      <li onclick="showSection('platters-section')">Platters</li>
-      <li onclick="showSection('packs-section')">Packs</li>
-      <li onclick="showSection('extras-section')">Extras</li>
-    </ul>
+    <div class="dropdown">
+      <button onclick="toggleDropdown('menu-dropdown')" class="dropdown-btn">Menu</button>
+      <div id="menu-dropdown" class="dropdown-content">
+        <a href="#" onclick="showSection('platters-section')">Platters</a>
+        <a href="#" onclick="showSection('packs-section')">Packs</a>
+        <a href="#" onclick="showSection('extras-section')">Extras</a>
+        <a href="#" onclick="showSection('drinks-section')">Drinks</a>
+      </div>
+    </div>
   </div>
 
   <main>
-    {% block content %}
-
-    <section id="platters-section">
-      <!-- Section content goes here -->
+    <section id="platters-section" class="menu-section">
+      <h2>Platters</h2>
+      {% for item in platter %}
+        <div class="menu-item">
+          <h3>{{ item.name }}</h3>
+          <p>{{ item.description }}</p>
+          <p>Price: ${{ item.price }}</p>
+        </div>
+      {% empty %}
+        <p>No platters available.</p>
+      {% endfor %}
     </section>
 
-    <section id="packs-section">
-      <!-- Section content goes here -->
+    <section id="packs-section" class="menu-section">
+      <h2>Packs</h2>
+      {% for item in pack %}
+        <div class="menu-item">
+          <h3>{{ item.name }}</h3>
+          <p>{{ item.description }}</p>
+          <p>Price: ${{ item.price }}</p>
+        </div>
+      {% empty %}
+        <p>No packs available.</p>
+      {% endfor %}
     </section>
 
-    <section id="extras-section">
-      <!-- Section content goes here -->
+    <section id="extras-section" class="menu-section">
+      <h2>Extras</h2>
+      {% for item in extra %}
+        <div class="menu-item">
+          <h3>{{ item.name }}</h3>
+          <p>{{ item.description }}</p>
+          <p>Price: ${{ item.price }}</p>
+        </div>
+      {% empty %}
+        <p>No extras available.</p>
+      {% endfor %}
+    </section>
+
+    <section id="drinks-section" class="menu-section">
+      <h2>Drinks</h2>
+      {% for item in drink %}
+        <div class="menu-item">
+          <h3>{{ item.name }}</h3>
+          <p>{{ item.description }}</p>
+          <p>Price: ${{ item.price }}</p>
+        </div>
+      {% empty %}
+        <p>No drinks available.</p>
+      {% endfor %}
     </section>
 
     <div class="cart-container">
@@ -42,50 +83,69 @@
     </div>
   </main>
 
-    <script>
-        // Function to toggle the visibility of a dropdown
-        function toggleDropdown(dropdownId) {
-            var dropdownContent = document.getElementById(dropdownId);
-            dropdownContent.classList.toggle("show");
+  <script>
+    var menuSections = document.getElementsByClassName("menu-section");
+  
+    // Function to toggle the visibility of a dropdown
+    function toggleDropdown(dropdownId) {
+      var dropdownContent = document.getElementById(dropdownId);
+      dropdownContent.classList.toggle("show");
+    }
+  
+    // Function to show a specific menu section and hide others
+    function showSection(sectionId) {
+      for (var i = 0; i < menuSections.length; i++) {
+        var section = menuSections[i];
+        if (section.id === sectionId) {
+          section.style.display = "block";
+        } else {
+          section.style.display = "none";
         }
-
-        // Function to hide the mobile menu
-        function hideMenu() {
-            var navLinks = document.getElementById("navLinks");
-            navLinks.style.right = "-200px";
+      }
+    }
+  
+    // Hide all menu sections except the first one initially
+    for (var i = 1; i < menuSections.length; i++) {
+      menuSections[i].style.display = "none";
+    }
+  
+    // Function to hide the mobile menu
+    function hideMenu() {
+      var navLinks = document.getElementById("navLinks");
+      navLinks.style.right = "-200px";
+    }
+  
+    // Function to show the mobile menu
+    function showMenu() {
+      var navLinks = document.getElementById("navLinks");
+      navLinks.style.right = "0";
+    }
+  
+    // Add event listener to close the dropdown when user clicks outside
+    window.addEventListener("click", function(event) {
+      if (!event.target.matches('.dropdown-btn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        for (var i = 0; i < dropdowns.length; i++) {
+          var dropdown = dropdowns[i];
+          if (dropdown.classList.contains('show')) {
+            dropdown.classList.remove('show');
+          }
         }
+      }
+    });
+  
+    // Cart functionality
+    var cartCount = 0;
+    var cartCountElement = document.getElementById("cart-count");
+    var cartElement = document.querySelector(".cart");
+  
+    cartElement.addEventListener("click", function() {
+      cartCount++;
+      cartCountElement.innerText = cartCount;
+    });
+  </script>
+  
 
-        // Function to show the mobile menu
-        function showMenu() {
-            var navLinks = document.getElementById("navLinks");
-            navLinks.style.right = "0";
-        }
-
-        // Add event listener to close the dropdown when user clicks outside
-        window.addEventListener("click", function (event) {
-            if (!event.target.matches('.dropdown-btn')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                for (var i = 0; i < dropdowns.length; i++) {
-                    var dropdown = dropdowns[i];
-                    if (dropdown.classList.contains('show')) {
-                        dropdown.classList.remove('show');
-                    }
-                }
-            }
-        });
-
-        // Cart functionality
-        var cartCount = 0;
-        var cartCountElement = document.getElementById("cart-count");
-        var cartElement = document.querySelector(".cart");
-
-        cartElement.addEventListener("click", function () {
-            cartCount++;
-            cartCountElement.innerText = cartCount;
-        });
-
-    </script>
-{% endblock %}
 </body>
 
 </html>
