@@ -8,6 +8,68 @@ body {
   background-color: #fff;
 }
 
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.1rem;
+  background-color: white;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+nav img {
+  width: 60px;
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.nav-links {
+  flex: 1;
+  text-align: right;
+  margin-right: 20px;
+}
+
+.nav-links ul li {
+  list-style: none;
+  display: inline-block;
+  padding: 8px 12px;
+  margin-right: 10px;
+  position: relative;
+}
+
+.nav-links ul a {
+  list-style: none;
+  display: inline-block;
+  padding: 8px 12px;
+  position: relative;
+}
+
+.nav-links ul li a {
+  color: #333;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.nav-links ul li::after {
+  content: '';
+  width: 0%;
+  height: 2px;
+  background: #EC3237;
+  display: block;
+  transition: 0.5s;
+}
+
+.nav-links ul li:hover::after {
+  width: 100%;
+}
+
 h1 {
   color: #EC3237;
   font-size: 2rem;
@@ -24,25 +86,28 @@ h3 {
 
 table {
   width: 100%;
+  border: none;
   border-collapse: collapse;
   margin-top: 1rem;
 }
 
-th, td {
-  border: 1px solid #EC3237;
+th,
+td {
+  border: none;
   padding: 8px;
   text-align: left;
 }
 
 th {
-  background-color: #FFDE5B;
+  background-color: #fff;
 }
 
 tr:nth-child(even) {
-  background-color: #FFDE5B;
+  background-color: #fff;
 }
 
-td.total, td.total-price {
+td.total,
+td.total-price {
   font-weight: bold;
   text-align: right;
 }
@@ -98,4 +163,51 @@ td.total, td.total-price {
   color: #fff;
   background-color: #343a40;
   border-color: #343a40;
+}
+
+.quantity button {
+  background-color: yellow; /* Set button background color to yellow */
+  color: #EC3237;
+}
+
+.quantity button:hover {
+  background-color: #EC3237; /* Set button background color to red on hover */
+  color: #fff;
+}
+
+/* Mobile View */
+@media (max-width: 767px) {
+  nav img {
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .nav-links {
+    margin-right: 10px;
+  }
+
+  .nav-links ul li {
+    padding: 4px 8px;
+    margin-right: 5px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  .continue-shopping {
+    width: 120px;
+    margin: 0.5rem auto;
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .btn {
+    font-size: 12px;
+  }
 }

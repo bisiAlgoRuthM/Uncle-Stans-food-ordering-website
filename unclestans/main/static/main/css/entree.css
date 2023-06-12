@@ -1,41 +1,66 @@
-/* Your provided CSS styles */
+/* Global Styles */
 * {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
 }
 
-/* Rest of your provided CSS styles */
-
-/* New CSS for the navigation pane */
+/* Header */
 #nav-pane {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 200px;
-  background-color: #FFF;
-  overflow-y: auto;
-  padding-top: 60px;
-  z-index: 4;
-  transition: left 0.5s ease;
+  background-color: #f8f8f8;
+  padding: 10px;
+  text-align: right;
 }
 
-#nav-pane ul {
-  list-style: none;
+.dropdown {
+  position: relative;
+  display: inline-block;
 }
 
-#nav-pane ul li {
-  padding: 10px 20px;
+.dropdown-btn {
+  background-color: #fff;
+  color: #555;
+  font-size: 16px;
+  border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  padding: 10px 20px;
+  transition: background-color 0.3s;
 }
 
-#nav-pane ul li:hover {
-  background-color: #EC3237;
-  color: #FFF;
+.dropdown-btn:hover {
+  background-color: #f1f1f1;
 }
 
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: #555;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.show {
+  display: block;
+}
+
+/* Main Content */
 main {
   max-width: 1200px;
   margin: 2rem auto;
@@ -44,39 +69,136 @@ main {
   transition: margin-left 0.5s ease;
 }
 
-/* Additional CSS for the cart */
+.menu-section {
+  margin-bottom: 30px;
+}
+
+h2 {
+  color: #333;
+  font-size: 24px;
+  margin: 0 0 20px;
+}
+
+.menu-item {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+h3 {
+  color: #333;
+  font-size: 20px;
+  margin: 0 0 10px;
+}
+
+p {
+  color: #777;
+  margin: 0 0 15px;
+}
+
+.item-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price {
+  color: #555;
+}
+
+.quantity-btn {
+  background-color: #f1f1f1;
+  color: #555;
+  border: none;
+  font-size: 18px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.quantity-btn:hover {
+  background-color: #ddd;
+}
+
+.item-count {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 10px;
+}
+
+/* Cart */
 .cart-container {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  z-index: 3;
 }
 
 .cart {
-  position: relative;
-  background-color: #EC3237;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
+  background-color: #555;
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 20px;
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+}
+
+.cart:hover {
+  background-color: #333;
 }
 
 .cart i {
-  color: #FFF;
-  font-size: 24px;
+  margin-top: 2px;
 }
 
-#cart-count {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background-color: #FFF;
-  color: #EC3237;
-  font-size: 12px;
-  padding: 4px 6px;
-  border-radius: 50%;
+/* Mobile View */
+@media (max-width: 600px) {
+  #nav-pane {
+    text-align: left;
+  }
+
+  .dropdown-btn {
+    padding: 10px;
+  }
+
+  .dropdown-content {
+    min-width: 100%;
+    top: 100%;
+    left: 0;
+    box-shadow: none;
+  }
+
+  .dropdown-content a {
+    padding: 10px;
+  }
+
+  .cart-container {
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .cart {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .item-details {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .price {
+    margin-bottom: 10px;
+  }
+
+  .quantity-btn {
+    margin-top: 10px;
+  }
 }

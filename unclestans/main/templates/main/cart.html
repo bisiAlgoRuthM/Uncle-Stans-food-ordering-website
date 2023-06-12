@@ -10,6 +10,19 @@
 
 </head>
 <body>
+    <nav>
+        <a href="{% url 'index' %}"><img src="{% static 'main/images/logo.png' %}"></a>
+        <div class="nav-links" id="navLinks">
+            <i class="fa fa-times" onclick="hideMenu()"></i>
+            <ul>
+              <li><a href="{% url 'menu' %}">Menu</a></li>
+              <li><a href="">Locations</a></li>
+              <a href=""class="hero-btn-bar">Checkout</a>
+              
+            </ul>
+        </div>
+        <i class="fa fa-bars" onclick="showMenu()"></i>
+    </nav>
     <h1>Cart</h1>
     <h3 class="pb-3">Order Summary:</h3>
     {% if menu_items %}
