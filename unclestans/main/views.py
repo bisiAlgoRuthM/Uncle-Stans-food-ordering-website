@@ -127,6 +127,9 @@ class Order(View):
             return redirect('cart')
 
 
+from django.shortcuts import render
+from decimal import Decimal
+
 from django.views.decorators.http import require_POST
 
 @require_POST
