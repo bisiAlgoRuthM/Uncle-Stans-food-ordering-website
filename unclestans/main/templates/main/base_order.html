@@ -1,15 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
-    <link rel="stylesheet" href="{% static 'main/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/entree.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
 </head>
 <body>
+    {% block content %}
+
+
+    {% endblock %}
+
+    <script>
+        // Function to toggle the visibility of a dropdown
+        function toggleDropdown(dropdownId) {
+            var dropdownContent = document.getElementById(dropdownId);
+            dropdownContent.classList.toggle("show");
+        }
+
+        // Function to hide the mobile menu
+        function hideMenu() {
+            var navLinks = document.getElementById("navLinks");
+            navLinks.style.right = "-200px";
+        }
+
+        // Function to show the mobile menu
+        function showMenu() {
+            var navLinks = document.getElementById("navLinks");
+            navLinks.style.right = "0";
+        }
+
+        // Add event listener to close the dropdown when user clicks outside
+        window.addEventListener("click", function (event) {
+            if (!event.target.matches('.dropdown-btn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var dropdown = dropdowns[i];
+                    if (dropdown.classList.contains('show')) {
+                        dropdown.classList.remove('show');
+                    }
+                }
+            }
+        });
+
+        // Cart functionality
+        var cartCount = 0;
+        var cartCountElement = document.getElementById("cart-count");
+        var cartElement = document.querySelector(".cart");
+
+        cartElement.addEventListener("click", function () {
+            cartCount++;
+            cartCountElement.innerText = cartCount;
+        });
+
+    </script>
+    
+    <section class="footer">
+        <div class="icons">
+            <i class="fa fa-facebook"></i>
+            <i class="fa fa-twitter"></i>
+            <i class="fa fa-instagram"></i>
+            <i class="fa fa-linkedin"></i>
+        </div>
+        <p>&copy; 2023 Uncle Stans</p>
+      </section>
+    <script>
+        var navLinks = document.getElementById("navLinks");
+        function showMenu(){
+            navLinks.style.right = "0";
+        }
+        function hideMenu(){
+            navLinks.style.right = "-200px";
+        }
+    </script>
     
 </body>
 </html>

@@ -1,23 +1,22 @@
+{% extends 'main/base_order.html'%}
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'main/css/entree.css' %}">
-    <title>Food Ordering Page</title>
-</head>
-
 <body>
+  {% block content %}
   <div id="nav-pane">
+    <ul>
     <div class="dropdown">
       <button onclick="toggleDropdown('menu-dropdown')" class="dropdown-btn">Menu</button>
-      <div id="menu-dropdown" class="dropdown-content">
-        <a href="#" onclick="showSection('platters-section')">Platters</a>
-        <a href="#" onclick="showSection('packs-section')">Packs</a>
-        <a href="#" onclick="showSection('extras-section')">Extras</a>
-        <a href="#" onclick="showSection('drinks-section')">Drinks</a>
+      
+        <div id="menu-dropdown" class="dropdown-content">
+        <li><a href="#" onclick="showSection('platters-section')">Platters</a></li>
+        <li><a href="#" onclick="showSection('packs-section')">Packs</a></li>
+        <li><a href="#" onclick="showSection('extras-section')">Extras</a></li>
+        <li><a href="#" onclick="showSection('drinks-section')">Drinks</a></li>
+        </div>
+      </ul>
       </div>
     </div>
   </div>
@@ -29,7 +28,7 @@
         <div class="menu-item">
           <h3>{{ item.name }}</h3>
           <p>{{ item.description }}</p>
-          <p>Price: ${{ item.price }}</p>
+          <p>Price: ₦{{ item.price }}</p>
         </div>
       {% empty %}
         <p>No platters available.</p>
@@ -42,7 +41,7 @@
         <div class="menu-item">
           <h3>{{ item.name }}</h3>
           <p>{{ item.description }}</p>
-          <p>Price: ${{ item.price }}</p>
+          <p>Price: ₦{{ item.price }}</p>
         </div>
       {% empty %}
         <p>No packs available.</p>
@@ -55,7 +54,7 @@
         <div class="menu-item">
           <h3>{{ item.name }}</h3>
           <p>{{ item.description }}</p>
-          <p>Price: ${{ item.price }}</p>
+          <p>Price: ₦{{ item.price }}</p>
         </div>
       {% empty %}
         <p>No extras available.</p>
@@ -68,7 +67,7 @@
         <div class="menu-item">
           <h3>{{ item.name }}</h3>
           <p>{{ item.description }}</p>
-          <p>Price: ${{ item.price }}</p>
+          <p>Price: ₦{{ item.price }}</p>
         </div>
       {% empty %}
         <p>No drinks available.</p>
@@ -144,7 +143,7 @@
       cartCountElement.innerText = cartCount;
     });
   </script>
-  
+  {% endblock %}
 
 </body>
 

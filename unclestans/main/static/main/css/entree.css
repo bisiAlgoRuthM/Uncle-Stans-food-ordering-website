@@ -22,11 +22,18 @@
 }
 
 #nav-pane ul {
-  list-style: none;
+  background-color: #f5f5f5;
+  padding: 10px;
 }
-
-#nav-pane ul li {
+#nav-pane ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+#nav-pane li {
   padding: 10px 20px;
+  margin-right: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -34,6 +41,10 @@
 #nav-pane ul li:hover {
   background-color: #EC3237;
   color: #FFF;
+}
+#nav-pane li.active {
+  font-weight: bold;
+  color: #555;
 }
 
 main {
@@ -80,3 +91,5 @@ main {
   padding: 4px 6px;
   border-radius: 50%;
 }
+
+
