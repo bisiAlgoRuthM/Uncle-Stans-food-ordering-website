@@ -18,7 +18,6 @@
               <li><a href="{% url 'menu' %}">Menu</a></li>
               <li><a href="">Locations</a></li>
               <a href=""class="hero-btn-bar">Checkout</a>
-              
             </ul>
         </div>
         <i class="fa fa-bars" onclick="showMenu()"></i>
@@ -63,13 +62,16 @@
         <a href="{% url 'order' %}" class="continue-shopping">Continue Shopping</a>
     {% endif %}
 
+    <!-- Place the cart count element here -->
+    <span id="cart-count">{{ menu_items|length }}</span>
+
     <script>
         // Cart functionality
-        var cartCount = {{ menu_items|length }};
         var cartCountElement = document.getElementById("cart-count");
         var cartElement = document.querySelector(".cart");
 
-        cartCountElement.innerText = cartCount;
+        // Update cart count element
+        cartCountElement.innerText = cartElement.children.length;
 
         function decreaseQuantity(itemId) {
             const quantityInput = document.getElementById(`quantity-${itemId}`);
@@ -87,8 +89,7 @@
 
         // Add event listener to update cart count when a new item is added
         cartElement.addEventListener("click", function () {
-            cartCount++;
-            cartCountElement.innerText = cartCount;
+            cartCountElement.innerText = cartElement.children.length;
         });
     </script>
 </body>
