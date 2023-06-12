@@ -396,3 +396,99 @@ h2{
 .item-container .font-weight-bold {
     margin-left: auto;
 }
+/* Your provided CSS styles */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  /* Rest of your provided CSS styles */
+  
+  /* New CSS for the navigation pane */
+  #nav-pane {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 200px;
+    background-color: #FFF;
+    overflow-y: auto;
+    padding-top: 60px;
+    z-index: 4;
+    transition: left 0.5s ease;
+  }
+  
+  #nav-pane ul {
+    background-color: #f5f5f5;
+    padding: 10px;
+  }
+  #nav-pane ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  #nav-pane li {
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #nav-pane ul li:hover {
+    background-color: #EC3237;
+    color: #FFF;
+  }
+  #nav-pane li.active {
+    font-weight: bold;
+    color: #555;
+  }
+  
+  main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    margin-left: 200px; /* Adjust the margin to create space for the navigation pane */
+    transition: margin-left 0.5s ease;
+  }
+  
+  /* Additional CSS for the cart */
+  .cart-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 3;
+  }
+  
+  .cart {
+    position: relative;
+    background-color: #EC3237;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .cart i {
+    color: #FFF;
+    font-size: 24px;
+  }
+  
+  #cart-count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #FFF;
+    color: #EC3237;
+    font-size: 12px;
+    padding: 4px 6px;
+    border-radius: 50%;
+  }
+  
+  
+  

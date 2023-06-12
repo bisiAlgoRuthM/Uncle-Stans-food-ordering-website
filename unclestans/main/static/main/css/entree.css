@@ -16,16 +16,19 @@ body {
   text-align: right;
 }
 
-.dropdown {
-  position: relative;
-  display: inline-block;
+#nav-pane ul {
+  background-color: #f5f5f5;
+  padding: 10px;
 }
-
-.dropdown-btn {
-  background-color: #fff;
-  color: #555;
-  font-size: 16px;
-  border: none;
+#nav-pane ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+#nav-pane li {
+  padding: 10px 20px;
+  margin-right: 10px;
   cursor: pointer;
   padding: 10px 20px;
   transition: background-color 0.3s;
@@ -33,6 +36,10 @@ body {
 
 .dropdown-btn:hover {
   background-color: #f1f1f1;
+}
+#nav-pane li.active {
+  font-weight: bold;
+  color: #555;
 }
 
 .dropdown-content {
@@ -202,3 +209,5 @@ p {
     margin-top: 10px;
   }
 }
+
+

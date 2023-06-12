@@ -1,5 +1,6 @@
 {% load static %}
 {% load custom_filters %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,6 @@
     <title>Cart</title>
     <link rel="stylesheet" type="text/css" href="{% static 'main/css/cart.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-
 </head>
 <body>
     <nav>
@@ -64,6 +64,13 @@
     {% endif %}
 
     <script>
+        // Cart functionality
+        var cartCount = {{ menu_items|length }};
+        var cartCountElement = document.getElementById("cart-count");
+        var cartElement = document.querySelector(".cart");
+
+        cartCountElement.innerText = cartCount;
+
         function decreaseQuantity(itemId) {
             const quantityInput = document.getElementById(`quantity-${itemId}`);
             const currentQuantity = parseInt(quantityInput.value);
@@ -77,6 +84,12 @@
             const currentQuantity = parseInt(quantityInput.value);
             quantityInput.value = currentQuantity + 1;
         }
+
+        // Add event listener to update cart count when a new item is added
+        cartElement.addEventListener("click", function () {
+            cartCount++;
+            cartCountElement.innerText = cartCount;
+        });
     </script>
 </body>
 </html>
