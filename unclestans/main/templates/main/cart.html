@@ -1,52 +1,47 @@
+{% load static %}
+{% load custom_filters %}
 <!DOCTYPE html>
-{% extends 'main/base.html'%}
-<html lang="en">
+<html>
 <head>
-  {% load static %}
- 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'main/css/cart.css' %}">
-  <title>Cart</title>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'main/css/cart.css' %}">
 </head>
 <body>
-  {% block content %}
-  <header>
     <h1>Cart</h1>
-  </header>
-  <main>
-    <div id="cart-items">
-          <h1>Cart</h1>
-          <table>
-              <thead>
-                  <tr>
-                      <th>Item</th>
-                      <th>Price</th>
-                      <th>Quantity</th>
-                      <th>Total</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  {% for item in cart_items %}
-                  <tr>
-                      <td>{{ item.name }}</td>
-                      <td>{{ item.price }}</td>
-                      <td>{{ item.quantity }}</td>
-                      <td>{{ item.total }}</td>
-                  </tr>
-                  {% endfor %}
-              </tbody>
-          </table>
-      
-    </div>
-    <div id="total">
-      <span>Total:</span>
-      <span id="total-amount">$0</span>
-    </div>
-    <button id="checkout-button">Checkout</button>
-  </main>
-
-  <script src="{% static 'main/js/script.js' %}"></script>
-  {% endblock %}
+    <h3 class="pb-3">Order Summary:</h3>
+    {% if menu_items %}
+        <table>
+            <tr>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+            {% for item in menu_items %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>₦{{ item.price }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>₦{{ item.price|multiply:item.quantity }}</td>
+                    <td>
+                      <form action="{% url 'remove_from_cart' item.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit">Remove</button>
+                      </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td class="total" colspan="3">Total:</td>
+                <td class="total-price" colspan="2">₦{{ price }}</td>
+            </tr>
+        </table>
+        <a href="{% url 'order' %}" class="continue-shopping">Continue Shopping</a>
+    {% else %}
+        <p class="empty-cart">Your cart is empty.</p>
+        <a href="{% url 'order' %}" class="continue-shopping">Continue Shopping</a>
+    {% endif %}
 </body>
 </html>

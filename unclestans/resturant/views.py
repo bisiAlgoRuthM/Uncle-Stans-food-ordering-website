@@ -29,6 +29,17 @@ def update_view(request, item_id):
 
     return render(request, 'resturant/update_menu.html', {'form': form})
 
+def remove_from_menuitem(request, item_id):
+    if request.method == 'POST':
+        # Retrieve the item from the cart based on the item_id
+        item = MenuItem.objects.get(id=item_id)
+        
+        # Remove the item from the cart
+        item.delete()
+        
+        # Redirect back to the cart page
+        return redirect('cart')
+
 def menu_item_detail(request, item_id, success):
     item = get_object_or_404(MenuItem, id=item_id)
     success = request.GET.get('success', False)

@@ -5,12 +5,12 @@ from django.db import models
 
 class OrderModel(models.Model):
     items = models.ManyToManyField('MenuItem', related_name='order', blank=True)
-    quantity = models.PositiveIntegerField()
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
     created_at = models.DateTimeField(auto_now_add=True)
 
     name = models.CharField(max_length=50, blank=True)
     email = models.CharField(max_length=50, blank=True)
-    streer = models.CharField(max_length=50, blank=True)
+    street = models.CharField(max_length=50, blank=True)
     city = models.CharField(max_length=50, blank=True)
     state = models.CharField(max_length=15, blank=True)
     zipcode = models.IntegerField(blank=True, null=True)

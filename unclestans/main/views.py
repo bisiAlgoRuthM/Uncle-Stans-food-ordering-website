@@ -108,10 +108,10 @@ class Order(View):
                 'quantity': int(quantity)
             }
             order_items.append(item_data)
-            price = sum(item['price'] * item['quantity'] for item in order_items)
+            total_price = sum(item['price'] * item['quantity'] for item in order_items)
             item_ids = [item['id'] for item in order_items]
 
-            order = OrderModel.objects.create(price=price)
+            order = OrderModel.objects.create(price=total_price)
             order.items.add(*item_ids)
 
             cart = request.session.get('cart', [])
@@ -121,28 +121,54 @@ class Order(View):
 
             context = {
                 'items': order_items,
-                'price': price
+                'price':total_price
             }
 
             return redirect('cart')
 
 
-def cart_view(request):
-    cart = request.session.get('cart', [])
-    total = 0
+from django.views.decorators.http import require_POST
 
-    #retrive items in the cart 
+@require_POST
+def remove_from_cart(request, item_id):
+    cart = request.session.get('cart', [])
+
+    if item_id in cart:
+        cart.remove(item_id)
+        request.session['cart'] = cart
+
+    return redirect('cart')
+
+
+def cart_view(request):
+    if request.method == 'POST':
+        item_id = request.POST.get('item_id')
+        remove_from_cart(request, item_id)
+
+    cart = request.session.get('cart', [])
+    total = Decimal(0)
+
+    # Retrieve items in the cart
     order_items = MenuItem.objects.filter(pk__in=cart)
 
-    #calculate total 
-    total = sum(item.price for item in order_items)
+    # Calculate the total price
+    for item in order_items:
+        item.quantity = cart.count(item.pk)
+        total += item.price * item.quantity
 
     context = {
         'menu_items': order_items,
-        'price': total
+        'price': total,
+        'total': total
     }
 
-    return render(request, 'main/test.html', context)
+    return render(request, 'main/cart.html', context)
+
+
+
+
+
+
 from django.views import View
 from django.shortcuts import render
 from .models import MenuItem

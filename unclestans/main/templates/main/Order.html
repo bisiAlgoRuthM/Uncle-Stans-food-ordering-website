@@ -9,148 +9,141 @@
 </head>
 <body>
     {% block content %}
-    <div class="container mb-5">
-        <div class="row justify-content-center mt-1">
-            <div class="col-md-12 col-sm-12 p-4">
-                <form method="POST" action="{% url 'cart' %}">
-                    {% csrf_token %}
-                    <div class="pt-5">
-                        {% for ex in extra %}
-                        <div class="row item-container">
-                            {{ ex.category }}
-                            <div class="col-md-2 col-sm-12">
-                                <img class="rounded" src="{{ ex.image.url }}" width="150" height="100"/>
-                            </div>
-                            <div class="col-md-8 col-sm-12">
-                                <div class="d-flex flex-row align-items-center">
-                                    <div class="form-group form-check">
-                                        <input type="hidden" name="item_id" value="{{ ex.pk }}">
-                                        <button type="submit" name="add_to_cart" class="btn btn-primary">Add to Cart</button>
-                                    </div>
-                                    <p class="font-weight-bold ml-auto">{{ ex.price }}</p>
-                                    <div class="input-group quantity">
-                                        <button class="btn btn-sm btn-outline-dark quantity-decrease" type="button">-</button>
-                                        <input type="number" name="quantity[]" class="form-control quantity-input" min="0" value="0">
-                                        <button class="btn btn-sm btn-outline-dark quantity-increase" type="button">+</button>
-                                    </div>
-                                </div>
-                                <p class="item-description">{{ ex.description }}</p>
-                            </div>
+<div class="container mb-5">
+    <div class="row justify-content-center mt-1">
+        <div class="col-md-12 col-sm-12 p-4">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="pt-5">
+                    {% for ex in extra %}
+                    <div class="row item-container">
+                        {{ ex.category }}
+                        <div class="col-md-2 col-sm-12">
+                            <img class="rounded" src="{{ ex.image.url }}" width="150" height="100"/>
                         </div>
-                        <hr />
-                        {% endfor %}
-                    </div>
-    
-                    <div class="pt-5">
-                        {% for pac in pack %}
-                        <div class="row mt-4">
-                            <div class="col-md-2 col-sm-12">
-                                <img class="rounded" src="{{ pac.image.url }}" width="150" height="100"/>
-                            </div>
-                            <div class="col-md-8 col-sm-12">
-                                <div class="d-flex flex-row align-items-center">
-                                    <div class="form-group form-check">
-                                        <input type="hidden" name="item_id" value="{{ pac.pk }}">
-                                        <button type="submit" name="add_to_cart" class="btn btn-primary">Add to Cart</button>
-                                    </div>
-                                    <p class="font-weight-bold ml-auto">{{ pac.price }}</p>
-                                    <div class="input-group quantity">
-                                        <button class="btn btn-sm btn-outline-dark quantity-decrease" type="button">-</button>
-                                        <input type="number" name="quantity[]" class="form-control quantity-input" min="0" value="0">
-                                        <button class="btn btn-sm btn-outline-dark quantity-increase" type="button">+</button>
-                                    </div>
+                        <div class="col-md-8 col-sm-12">
+                            <div class="d-flex flex-row align-items-center">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" name="items[]" class="form-check-input" value="{{ ex.pk }}">
+                                    <label class="form-check-label">{{ ex.name }}</label>
                                 </div>
-                                <p class="item-description">{{ pac.description }}</p>
-                            </div>
-                        </div>
-                        <hr />
-                        {% endfor %}
-                    </div>
-    
-                    <div class="pt-5">
-                        {% for p in platter %}
-                        <div class="row mt-4">
-                            <div class="col-md-2 col-sm-12">
-                                <img class="rounded" src="{{ p.image.url }}" width="150" height="100"/>
-                            </div>
-                            <div class="col-md-8 col-sm-12">
-                                <div class="d-flex flex-row align-items-center">
-                                    <div class="form-group form-check">
-                                        <input type="hidden" name="item_id" value="{{ p.pk }}">
-                                        <button type="submit" name="add_to_cart" class="btn btn-primary">Add to Cart</button>
-                                    </div>
-                                    <p class="font-weight-bold ml-auto">{{ p.price }}</p>
-                                    <div class="input-group quantity">
-                                        <button class="btn btn-sm btn-outline-dark quantity-decrease" type="button">-</button>
-                                        <input type="number" name="quantity[]" class="form-control quantity-input" min="0" value="0">
-                                        <button class="btn btn-sm btn-outline-dark quantity-increase" type="button">+</button>
-                                    </div>
+                                <p class="font-weight-bold ml-auto">{{ ex.price }}</p>
+                                <div class="input-group quantity">
+                                    <button class="btn btn-sm btn-outline-dark quantity-decrease" type="button">-</button>
+                                    <input type="number" name="quantity[]" class="form-control quantity-input" min="0" value="0">
+                                    <button class="btn btn-sm btn-outline-dark quantity-increase" type="button">+</button>
                                 </div>
-                                <p class="item-description">{{ p.description }}</p>
                             </div>
+                            <p class="item-description">{{ ex.description }}</p>
                         </div>
-                        <hr />
-                        {% endfor %}
                     </div>
-    
-                    <div class="pt-5">
-                        {% for dr in drink %}
-                        <div class="row mt-4">
-                            <div class="col-md-2 col-sm-12">
-                                <img class="rounded" src="{{ dr.image.url }}" width="150" height="100"/>
-                            </div>
-                            <div class="col-md-8 col-sm-12">
-                                <div class="d-flex flex-row align-items-center">
-                                    <div class="form-group form-check">
-                                        <input type="hidden" name="item_id" value="{{ dr.pk }}">
-                                        <button type="submit" name="add_to_cart" class="btn btn-primary">Add to Cart</button>
-                                    </div>
-                                    <p class="font-weight-bold ml-auto">{{ dr.price }}</p>
-                                    <div class="input-group quantity">
-                                        <button class="btn btn-sm btn-outline-dark quantity-decrease" type="button">-</button>
-                                        <input type="number" name="quantity[]" class="form-control quantity-input" min="0" value="0">
-                                        <button class="btn btn-sm btn-outline-dark quantity-increase" type="button">+</button>
-                                    </div>
+                    <hr />
+                    {% endfor %}
+                </div>
+
+                <div class="pt-5">
+                    {% for pac in pack %}
+                    <div class="row mt-4">
+                        <div class="col-md-2 col-sm-12">
+                            <img class="rounded" src="{{ pac.image.url }}" width="150" height="100"/>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <div class="d-flex flex-row align-items-center">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" name="items[]" class="form-check-input" value="{{ pac.pk }}">
+                                    <label class="form-check-label">{{ pac.name }}</label>
                                 </div>
-                                <p class="item-description">{{ dr.description }}</p>
+                                <p class="font-weight-bold ml-auto">{{ pac.price }}</p>
+                                <div class="input-group quantity">
+                                    <button class="btn btn-sm btn-outline-dark quantity-decrease" type="button">-</button>
+                                    <input type="number" name="quantity[]" class="form-control quantity-input" min="0" value="0">
+                                    <button class="btn btn-sm btn-outline-dark quantity-increase" type="button">+</button>
+                                </div>
                             </div>
+                            <p class="item-description">{{ pac.description }}</p>
                         </div>
-                        <hr />
-                        {% endfor %}
                     </div>
-    
-                    <button class="hero-btn">Place Order!</button>
-                </form>
-            </div>
+                    <hr />
+                    {% endfor %}
+                </div>
+
+                <div class="pt-5">
+                    {% for p in platter %}
+                    <div class="row mt-4">
+                        <div class="col-md-2 col-sm-12">
+                            <img class="rounded" src="{{ p.image.url }}" width="150" height="100"/>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <div class="d-flex flex-row align-items-center">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" name="items[]" class="form-check-input" value="{{ p.pk }}">
+                                    <label class="form-check-label">{{ p.name }}</label>
+                                </div>
+                                <p class="font-weight-bold ml-auto">{{ p.price }}</p>
+                                <div class="input-group quantity">
+                                    <button class="btn btn-sm btn-outline-dark quantity-decrease" type="button">-</button>
+                                    <input type="number" name="quantity[]" class="form-control quantity-input" min="0" value="0">
+                                    <button class="btn btn-sm btn-outline-dark quantity-increase" type="button">+</button>
+                                </div>
+                            </div>
+                            <p class="item-description">{{ p.description }}</p>
+                        </div>
+                    </div>
+                    <hr />
+                    {% endfor %}
+                </div>
+                <div class="pt-5">
+                    {% for d in drink %}
+                    <div class="row mt-4">
+                        <div class="col-md-2 col-sm-12">
+                            <img class="rounded" src="{{ d.image.url }}" width="150" height="100"/>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <div class="d-flex flex-row align-items-center">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" name="items[]" class="form-check-input" value="{{ d.pk }}">
+                                    <label class="form-check-label">{{ d.name }}</label>
+                                </div>
+                                <p class="font-weight-bold ml-auto">{{ d.price }}</p>
+                                <div class="input-group quantity">
+                                    <button class="btn btn-sm btn-outline-dark quantity-decrease" type="button">-</button>
+                                    <input type="number" name="quantity[]" class="form-control quantity-input" min="0" value="0">
+                                    <button class="btn btn-sm btn-outline-dark quantity-increase" type="button">+</button>
+                                </div>
+                            </div>
+                            <p class="item-description">{{ d.description }}</p>
+                        </div>
+                    </div>
+                    <hr />
+                    {% endfor %}
+                </div>
+
+                <div class="mt-5">
+                    <button type="submit" class="btn btn-primary">Add to Cart</button>
+                </div>
+            </form>
         </div>
     </div>
-    
-    <script>
-        $(document).ready(function() {
-            // Hide all item descriptions by default
-            $('.item-description').hide();
-    
-            // Toggle the visibility of item description when checkbox is clicked
-            $('.form-check-input').on('click', function() {
-                $(this).parent().next('.item-description').slideToggle();
-            });
-    
-            // Increase and decrease quantity
-            $('.quantity-increase').on('click', function() {
-                const quantityInput = $(this).parent().find('.quantity-input');
-                let quantity = parseInt(quantityInput.val());
-                quantityInput.val(quantity + 1);
-            });
-    
-            $('.quantity-decrease').on('click', function() {
-                const quantityInput = $(this).parent().find('.quantity-input');
-                let quantity = parseInt(quantityInput.val());
-                if (quantity > 0) {
-                    quantityInput.val(quantity - 1);
-                }
-            });
+</div>
+
+<script>
+    // Quantity increase and decrease functionality
+    $(document).ready(function() {
+        $(".quantity-increase").click(function() {
+            var input = $(this).siblings(".quantity-input");
+            var currentValue = parseInt(input.val());
+            input.val(currentValue + 1);
         });
-    </script>
-    {% endblock %}
+
+        $(".quantity-decrease").click(function() {
+            var input = $(this).siblings(".quantity-input");
+            var currentValue = parseInt(input.val());
+            if (currentValue > 0) {
+                input.val(currentValue - 1);
+            }
+        });
+    });
+</script>
+{% endblock %}
 </body>
 </html>
