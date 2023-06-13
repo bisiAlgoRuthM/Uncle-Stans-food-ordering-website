@@ -28,6 +28,7 @@
                                     <label class="form-check-label">{{ ex.name }}</label>
                                 </div>
                                 <p class="font-weight-bold ml-auto">{{ ex.price }}</p>
+                                <button class="btn btn-primary add-to-cart-btn" data-item-id="{{ item.id }}">Add to Cart</button>
                                 <div class="input-group quantity">
                                     <button class="btn btn-sm btn-outline-dark quantity-decrease" type="button">-</button>
                                     <input type="number" name="quantity[]" class="form-control quantity-input" min="0" value="0">

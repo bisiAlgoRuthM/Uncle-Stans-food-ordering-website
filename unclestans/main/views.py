@@ -78,6 +78,25 @@ class MenuView(TemplateView):
         context['menu_items'] = menu_items_data
 
         return context
+    
+from django.shortcuts import get_object_or_404, redirect
+from .models import MenuItem
+
+def update_quantity(request):
+    if request.method == 'POST':
+        item_id = request.POST.get('item_id')
+        quantity = request.POST.get('quantity')
+
+        # Retrieve the MenuItem object
+        menu_item = get_object_or_404(MenuItem, id=item_id)
+
+        # Update the quantity
+        menu_item.quantity = quantity
+        menu_item.save()
+
+        # Redirect to the cart page
+        return redirect('cart')
+
 
 
 

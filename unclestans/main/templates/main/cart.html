@@ -50,19 +50,15 @@
         <a href="{% url 'order' %}" class="continue-shopping">Continue Shopping</a>
     {% endif %}
 
+    <!-- Add the following code inside the <body> tag, after the cart items -->
+
     <script>
-        // Cart functionality
-        var cartCount = {{ menu_items|length }};
-        var cartCountElement = document.getElementById("cart-count");
-        var cartElement = document.querySelector(".cart");
-
-        cartCountElement.innerText = cartCount;
-
         function decreaseQuantity(itemId) {
             const quantityInput = document.getElementById(`quantity-${itemId}`);
             const currentQuantity = parseInt(quantityInput.value);
             if (currentQuantity > 1) {
                 quantityInput.value = currentQuantity - 1;
+                updateQuantity(itemId, currentQuantity - 1);
             }
         }
 
@@ -70,13 +66,34 @@
             const quantityInput = document.getElementById(`quantity-${itemId}`);
             const currentQuantity = parseInt(quantityInput.value);
             quantityInput.value = currentQuantity + 1;
+            updateQuantity(itemId, currentQuantity + 1);
         }
 
-        // Add event listener to update cart count when a new item is added
-        cartElement.addEventListener("click", function () {
-            cartCount++;
-            cartCountElement.innerText = cartCount;
-        });
+        function updateQuantity(itemId, newQuantity) {
+            const url = "{% url 'update_quantity' %}";
+            const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({
+                    item_id: itemId,
+                    quantity: newQuantity
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                // Handle the response if needed
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Handle the error if needed
+            });
+        }
     </script>
 </body>
 </html>
