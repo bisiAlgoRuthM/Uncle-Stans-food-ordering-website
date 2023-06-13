@@ -10,6 +10,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <nav>
+        <a href="{% url 'index' %}"><img src="{% static 'main/images/logo.png' %}"></a>
+        <div class="nav-links" id="navLinks">
+            <i class="fa fa-times" onclick="hideMenu()"></i>
+            <ul>
+              <li><a href="{% url 'menu' %}">Menu</a></li>
+              <li><a href="">Locations</a></li>
+              <a href=""class="hero-btn-bar">Checkout</a>
+            </ul>
+        </div>
+        <i class="fa fa-bars" onclick="showMenu()"></i>
+    </nav>
     <h1>Cart</h1>
     <h3 class="pb-3">Order Summary:</h3>
     {% if menu_items %}
@@ -50,9 +62,23 @@
         <a href="{% url 'order' %}" class="continue-shopping">Continue Shopping</a>
     {% endif %}
 
+<<<<<<< HEAD
     <!-- Add the following code inside the <body> tag, after the cart items -->
 
     <script>
+=======
+    <!-- Place the cart count element here -->
+    <span id="cart-count">{{ menu_items|length }}</span>
+
+    <script>
+        // Cart functionality
+        var cartCountElement = document.getElementById("cart-count");
+        var cartElement = document.querySelector(".cart");
+
+        // Update cart count element
+        cartCountElement.innerText = cartElement.children.length;
+
+>>>>>>> 717356d7f119c7c6c8e6aee389c2ed126ba06b4b
         function decreaseQuantity(itemId) {
             const quantityInput = document.getElementById(`quantity-${itemId}`);
             const currentQuantity = parseInt(quantityInput.value);
@@ -69,6 +95,7 @@
             updateQuantity(itemId, currentQuantity + 1);
         }
 
+<<<<<<< HEAD
         function updateQuantity(itemId, newQuantity) {
             const url = "{% url 'update_quantity' %}";
             const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
@@ -94,6 +121,12 @@
                 // Handle the error if needed
             });
         }
+=======
+        // Add event listener to update cart count when a new item is added
+        cartElement.addEventListener("click", function () {
+            cartCountElement.innerText = cartElement.children.length;
+        });
+>>>>>>> 717356d7f119c7c6c8e6aee389c2ed126ba06b4b
     </script>
 </body>
 </html>
